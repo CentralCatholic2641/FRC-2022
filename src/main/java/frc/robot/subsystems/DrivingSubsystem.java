@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,20 +26,20 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public WPI_TalonSRX leftEncoder = new WPI_TalonSRX(Constants.leftEncoder);
   public WPI_TalonSRX rightEncoder = new WPI_TalonSRX(Constants.rightEncoder);
-  
+
   public DifferentialDrive differentialDrive = new DifferentialDrive(leftgroup, rightgroup);
-  
+
   public AHRS ahrs;
-  
+
   public void oDrive(double y1, double y2) {
     differentialDrive.arcadeDrive(y1, y2, true);
   }
- 
+
   public void tDrive(double left, double right) {
     differentialDrive.tankDrive(-left, -right, true);
   }
-  
-  public DrivingSubsystem() { 
+
+  public DrivingSubsystem() {
     ahrs = new AHRS();
     ahrs.zeroYaw();
   }
