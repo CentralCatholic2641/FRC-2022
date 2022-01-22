@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.subsystems.DrivingSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
@@ -18,28 +19,33 @@ public class Robot extends TimedRobot {
 
   public static DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  
+
+  public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+
   public static DrivingCommand drivingCommand = new DrivingCommand();
-  
+
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
   }
-  
+
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
   }
-  
+
   @Override
-  public void disabledInit() {}
-  
+  public void disabledInit() {
+  }
+
   @Override
-  public void disabledPeriodic() {}
-  
+  public void disabledPeriodic() {
+  }
+
   @Override
-  public void autonomousInit() {}
-    
+  public void autonomousInit() {
+  }
+
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
@@ -47,11 +53,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    if (autoCommand != null) autoCommand.cancel();
+    if (autoCommand != null)
+      autoCommand.cancel();
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {
@@ -59,5 +67,6 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }
