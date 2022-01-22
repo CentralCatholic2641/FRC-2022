@@ -6,18 +6,6 @@ package frc.robot;
 
 public final class Constants {
 
-	// A button
-	public static final int aButton = 1;
-
-	// B button
-	public static final int bButton = 2;
-
-	// X button
-	public static final int xButton = 3;
-
-	// Y button
-	public static final int yButton = 4;
-
 	// Joysticks
 	public static final int joystick1 = 1;
 	public static final int joystick2 = 2;
@@ -39,7 +27,10 @@ public final class Constants {
 	public static final int leftmotor2 = 3;
 	public static final int rightmotor1 = 1;
 	public static final int rightmotor2 = 4;
-    
+
+	// Miscellaneous motors
+	public static final int shooterMotor = 5;
+
 	// Encoders
 	public static final int leftEncoder = 2;
 	public static final int rightEncoder = 4;
