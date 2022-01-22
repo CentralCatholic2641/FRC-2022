@@ -26,7 +26,7 @@ public final class Constants {
 	// Joystick controller
 	public static final int oneButton = 1;
 	public static final int twoButton = 2;
-	public static final int threeButton = 3;
+	public static final int threeButton = 3; //intake
 	public static final int fourButton = 4;
 	public static final int fiveButton = 5;
 
@@ -39,6 +39,8 @@ public final class Constants {
 	public static final int leftmotor2 = 3;
 	public static final int rightmotor1 = 1;
 	public static final int rightmotor2 = 4;
+	public static final int intakemotor1 = 5; 
+	
     
 	// Encoders
 	public static final int leftEncoder = 2;

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.subsystems.DrivingSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
@@ -16,6 +17,7 @@ public class Robot extends TimedRobot {
   public static RobotContainer robotContainer;
 
   public static DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
+  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   
   public static DrivingCommand drivingCommand = new DrivingCommand();
   
