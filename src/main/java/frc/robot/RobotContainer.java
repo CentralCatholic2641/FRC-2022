@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class RobotContainer {
-  public Joystick gamepad1 = new Joystick(Constants.gamepad2);
+  public Joystick gamepad1 = new Joystick(0);
 
   public RobotContainer() {
     configureButtonBindings();

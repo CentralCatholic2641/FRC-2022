@@ -20,8 +20,8 @@ public class DrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double joystick1 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick1);
-    double joystick2 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick2);
+    double joystick1 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick2);
+    double joystick2 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick1);
     Robot.drivingSubsystem.oDrive(joystick1, joystick2);
   }
 
