@@ -51,4 +51,9 @@ public final class Constants {
 	public static final double wheelDiameter = 0.5;
 	public static final double driftCompensation = 0.04;
 	public static final int oneRotation = 4096;
+
+	// For the indexer -- Needs changed
+    public static int indexMotor1=1;
+    public static int indexmotor2=2;
+	public static double indexerSpeed = 0.6;
 }

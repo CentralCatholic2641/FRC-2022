@@ -5,13 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.IndexerCommand;
 
 public class RobotContainer {
   public Joystick gamepad1 = new Joystick(0);
+  public JoystickButton indexerButton1 = new JoystickButton(gamepad1, Constants.fourButton);
+  public JoystickButton indexerButton2 = new JoystickButton(gamepad1, Constants.fiveButton);
 
   public RobotContainer() {
     configureButtonBindings();
   }
 
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    indexerButton1.whileHeld(new IndexerCommand(true));
+    indexerButton2.whileHeld(new IndexerCommand(false));
+  }
 }
