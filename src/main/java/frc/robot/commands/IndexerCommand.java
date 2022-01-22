@@ -13,29 +13,30 @@ public class IndexerCommand extends CommandBase {
 
   public IndexerCommand(boolean goforward) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.indexer);
+    addRequirements(Robot.indexerSubsystem);
     goForward = goforward;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (goForward == true){
-      Robot.indexer.goForward();
-    }
-    else{
-      Robot.indexer.goBackward();
+
+    if (goForward == true) {
+      Robot.indexerSubsystem.goForward();
+    } else {
+      Robot.indexerSubsystem.goBackward();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

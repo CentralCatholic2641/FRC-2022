@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.subsystems.DrivingSubsystem;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -24,11 +24,10 @@ public class Robot extends TimedRobot {
   public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
   public static DrivingCommand drivingCommand = new DrivingCommand();
-  
-  //Indexer Object Initialization
-  public static Indexer indexer = new Indexer();
 
-  
+  // Indexer Object Initialization
+  public static IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
