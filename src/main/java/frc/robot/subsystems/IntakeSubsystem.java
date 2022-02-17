@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new intake. */
-  public Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  // public Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
   // public WPI_TalonSRX intakemotor1 = new WPI_TalonSRX(Constants.intakemotor1);
 
   public IntakeSubsystem() {
@@ -20,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void intake() {
     // intakemotor1.set(0.9);
-    compressor.enableDigital();
+    // compressor.enableDigital();
   }
 
   @Override
