@@ -5,27 +5,32 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ShooterSubsystem extends SubsystemBase {
-  /** Creates a new ShooterSubsystem. */
 
-  public WPI_TalonSRX shooterMotor = new WPI_TalonSRX(Constants.shooterMotor);
+  public WPI_TalonFX shooterMotor = new WPI_TalonFX(Constants.shooterMotor);
 
   public ShooterSubsystem() {
   }
 
   public void highTarget() {
-    shooterMotor.set(0.9);
+    shooterMotor.set(1);
   }
 
   public void lowTarget() {
     shooterMotor.set(0.5);
   }
 
+  public void stop() {
+    shooterMotor.set(0);
+    shooterMotor.setSelectedSensorPosition(0, 0, 0);
+  }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("encoder", shooterMotor.getSelectedSensorPosition());
   }
 }

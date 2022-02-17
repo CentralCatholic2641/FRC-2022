@@ -13,7 +13,7 @@ public class IndexerCommand extends CommandBase {
 
   public IndexerCommand(boolean goforward) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.indexerSubsystem);
+    // addRequirements(Robot.indexerSubsystem);
     goForward = goforward;
   }
 
@@ -26,11 +26,11 @@ public class IndexerCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (goForward == true) {
-      Robot.indexerSubsystem.goForward();
-    } else {
-      Robot.indexerSubsystem.goBackward();
-    }
+    // if (goForward == true) {
+    // Robot.indexerSubsystem.goForward();
+    // } else {
+    // Robot.indexerSubsystem.goBackward();
+    // }
   }
 
   // Called once the command ends or is interrupted.

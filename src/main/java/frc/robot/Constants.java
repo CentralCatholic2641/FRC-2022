@@ -14,7 +14,7 @@ public final class Constants {
 	// Joystick controller
 	public static final int oneButton = 1;
 	public static final int twoButton = 2;
-	public static final int threeButton = 3; //intake
+	public static final int threeButton = 3; // intake
 	public static final int fourButton = 4;
 	public static final int fiveButton = 5;
 
@@ -23,16 +23,16 @@ public final class Constants {
 	public static final int gamepad2 = 1;
 
 	// Drivetrain motors
-	public static final int leftmotor1 = 2;
-	public static final int leftmotor2 = 3;
-	public static final int rightmotor1 = 1;
+	public static final int leftmotor1 = 0;
+	public static final int leftmotor2 = 1;
+	public static final int leftmotor3 = 2;
+	public static final int rightmotor1 = 3;
 	public static final int rightmotor2 = 4;
-	
-	
-	
+	public static final int rightmotor3 = 5;
+
 	// Miscellaneous motors
-	public static final int shooterMotor = 5;
-	public static final int intakemotor1 = 6; 
+	public static final int shooterMotor = 4;
+	public static final int intakemotor1 = 6;
 
 	// Encoders
 	public static final int leftEncoder = 2;
@@ -47,7 +47,7 @@ public final class Constants {
 	public static final int oneRotation = 4096;
 
 	// For the indexer -- Needs changed
-    public static int indexMotor1=1;
-    public static int indexmotor2=2;
+	public static int indexMotor1 = 1;
+	public static int indexmotor2 = 2;
 	public static double indexerSpeed = 0.6;
 }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DrivingCommand extends CommandBase {
 
   public DrivingCommand() {
-    addRequirements(Robot.drivingSubsystem);
+    // addRequirements(Robot.drivingSubsystem);
   }
 
   @Override
@@ -22,7 +22,7 @@ public class DrivingCommand extends CommandBase {
   public void execute() {
     double joystick1 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick2);
     double joystick2 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick1);
-    Robot.drivingSubsystem.oDrive(joystick1, joystick2);
+    // Robot.drivingSubsystem.oDrive(joystick1, joystick2);
   }
 
   @Override
