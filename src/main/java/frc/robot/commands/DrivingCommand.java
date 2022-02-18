@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DrivingCommand extends CommandBase {
@@ -20,9 +21,10 @@ public class DrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
+    SmartDashboard.putNumber("encoder", -Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / 2048);
     double joystick1 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick2);
     double joystick2 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick1);
-    Robot.drivingSubsystem.oDrive(joystick1, joystick2);
+    Robot.drivingSubsystem.oDrive(joystick1 / 2, -joystick2);
   }
 
   @Override

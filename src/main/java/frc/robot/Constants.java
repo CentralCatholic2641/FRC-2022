@@ -14,7 +14,7 @@ public final class Constants {
 	// Joystick controller
 	public static final int oneButton = 1;
 	public static final int twoButton = 2;
-	public static final int threeButton = 3; // intake
+	public static final int threeButton = 3;
 	public static final int fourButton = 4;
 	public static final int fiveButton = 5;
 
@@ -29,25 +29,26 @@ public final class Constants {
 	public static final int rightmotor1 = 0;
 	public static final int rightmotor2 = 1;
 	public static final int rightmotor3 = 2;
+	public static final int climberMotor = 6;
+	public static final int indexMotor1 = 10;
+	public static final int indexmotor2 = 9;
+	public static final int shooterMotor = 7;
+	public static final int intakemotor1 = 8;
 
-	// Miscellaneous motors
-	public static final int shooterMotor = 4;
-	public static final int intakemotor1 = 6;
+	public static double indexerSpeed = 0.6;
 
 	// Encoders
 	public static final int leftEncoder = 2;
 	public static final int rightEncoder = 4;
 
 	// PID-related
-	public static final double kP = 0.6;
-	public static final double kI = 0.002;
-	public static final double kD = 0.2;
+	public static final double kP = 0.8;
+	public static final double kI = 0.00475;
+	// public static final double kI = 0;
+	// public static final double kD = 0.5;
+	public static final double kD = 0.005;
+
 	public static final double wheelDiameter = 0.5;
 	public static final double driftCompensation = 0.04;
-	public static final int oneRotation = 4096;
-
-	// For the indexer -- Needs changed
-	public static int indexMotor1 = 1;
-	public static int indexmotor2 = 2;
-	public static double indexerSpeed = 0.6;
+	public static final int oneRotation = 2048;
 }

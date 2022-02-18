@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShooterCommand;
+import frc.robot.auto.AutoCommandGroup;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.subsystems.DrivingSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.ClimberSubsystem;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
@@ -25,20 +26,19 @@ public class Robot extends TimedRobot {
   public static IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public static ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
   public static DrivingCommand drivingCommand = new DrivingCommand();
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
     SmartDashboard.putData("ShooterCommand: 100%", new ShooterCommand(1));
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-
   }
 
   @Override
@@ -51,6 +51,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
+    autoCommand = new AutoCommandGroup();
+    CommandScheduler.getInstance().registerSubsystem(drivingSubsystem);
+    if (autoCommand != null)
+      autoCommand.schedule();
   }
 
   @Override
