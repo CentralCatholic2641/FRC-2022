@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
-  /** Creates a new Indexer. */
-
   public WPI_TalonSRX indexmotor1 = new WPI_TalonSRX(Constants.indexMotor1);
   public WPI_TalonSRX indexmotor2 = new WPI_TalonSRX(Constants.indexmotor2);
 
@@ -23,7 +21,6 @@ public class IndexerSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   public void goForward() {
@@ -33,5 +30,4 @@ public class IndexerSubsystem extends SubsystemBase {
   public void goBackward() {
     indexergroup.set(-Constants.indexerSpeed);
   }
-
 }

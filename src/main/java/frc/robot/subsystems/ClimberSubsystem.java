@@ -12,7 +12,6 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public WPI_TalonFX climberMotor = new WPI_TalonFX(Constants.climberMotor);
 
-  /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
   }
 
@@ -30,6 +29,5 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

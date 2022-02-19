@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Compressor;
 // import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  /** Creates a new intake. */
   public Compressor compressor = new Compressor(21, PneumaticsModuleType.CTREPCM);
   // public WPI_TalonSRX intakemotor1 = new WPI_TalonSRX(Constants.intakemotor1);
 
@@ -33,6 +32,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

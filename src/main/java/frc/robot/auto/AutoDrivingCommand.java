@@ -34,7 +34,6 @@ public class AutoDrivingCommand extends CommandBase {
     SmartDashboard.delete("angle");
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     lDistanceTravelled = ((-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / Constants.oneRotation)
@@ -60,13 +59,11 @@ public class AutoDrivingCommand extends CommandBase {
     SmartDashboard.putNumber("travelled", lDistanceTravelled);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if (lOutput > 0.25) {
