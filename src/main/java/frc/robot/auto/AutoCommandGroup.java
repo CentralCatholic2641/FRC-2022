@@ -14,6 +14,7 @@ public class AutoCommandGroup extends SequentialCommandGroup {
   /** Creates a new AutoCommandGroup. */
   public AutoCommandGroup() {
     Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
+    Robot.drivingSubsystem.ahrs.zeroYaw();
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new AutoDrivingCommand(20.0));

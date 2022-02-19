@@ -33,8 +33,8 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public AHRS ahrs;
 
-  public void oDrive(double y1, double y2) {
-    differentialDrive.arcadeDrive(y1, y2, true);
+  public void oDrive(double rotation, double speed) {
+    differentialDrive.arcadeDrive(rotation / 2, speed, true);
   }
 
   public void tDrive(double left, double right) {

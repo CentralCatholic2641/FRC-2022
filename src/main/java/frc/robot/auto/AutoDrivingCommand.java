@@ -29,7 +29,6 @@ public class AutoDrivingCommand extends CommandBase {
   @Override
   public void initialize() {
     // Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
-    Robot.drivingSubsystem.ahrs.zeroYaw();
     SmartDashboard.delete("error");
     SmartDashboard.delete("output");
     SmartDashboard.delete("angle");
@@ -43,7 +42,6 @@ public class AutoDrivingCommand extends CommandBase {
 
     lError = setpoint - lDistanceTravelled;
     lI += (lError * 1);
-    // lD = (lError - lErrorPrevious) / .02;
     lD = (lError - lErrorPrevious);
     lOutput = ((Constants.kP * lError) + (Constants.kI * lI) + (Constants.kD * lD))
         / ((Constants.kP) * setpoint);
@@ -72,7 +70,7 @@ public class AutoDrivingCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     if (lOutput > 0.25) {
-      Robot.drivingSubsystem.oDrive(0, lOutput);
+      Robot.drivingSubsystem.oDrive(-Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation, lOutput);
       return false;
     } else {
       Robot.drivingSubsystem.tDrive(0, 0);

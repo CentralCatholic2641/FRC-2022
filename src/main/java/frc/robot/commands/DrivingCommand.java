@@ -22,9 +22,15 @@ public class DrivingCommand extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("encoder", -Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / 2048);
+    // double joystick1 =
+    // Robot.robotContainer.gamepad1.getRawAxis(Constants.lyAxis);
+    // double joystick2 =
+    // Robot.robotContainer.gamepad1.getRawAxis(Constants.ryAxis);
+    // Robot.drivingSubsystem.tDrive(joystick1, -joystick2);
+
     double joystick1 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick2);
     double joystick2 = Robot.robotContainer.gamepad1.getRawAxis(Constants.joystick1);
-    Robot.drivingSubsystem.oDrive(joystick1 / 2, -joystick2);
+    Robot.drivingSubsystem.oDrive(joystick1, -joystick2);
   }
 
   @Override

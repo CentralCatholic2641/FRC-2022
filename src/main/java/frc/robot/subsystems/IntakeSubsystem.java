@@ -5,17 +5,25 @@
 package frc.robot.subsystems;
 
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-// import edu.wpi.first.wpilibj.Compressor;
-// import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Compressor;
 // import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new intake. */
-  // public Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  public Compressor compressor = new Compressor(21, PneumaticsModuleType.CTREPCM);
   // public WPI_TalonSRX intakemotor1 = new WPI_TalonSRX(Constants.intakemotor1);
 
   public IntakeSubsystem() {
+  }
+
+  public void start() {
+    compressor.enableDigital();
+  }
+
+  public void stop() {
+    compressor.disable();
   }
 
   public void intake() {

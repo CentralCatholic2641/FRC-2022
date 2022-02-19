@@ -6,17 +6,31 @@ package frc.robot;
 
 public final class Constants {
 
-	// Joysticks
+	// Joystick button profile
 	public static final int joystick1 = 1;
 	public static final int joystick2 = 2;
 	public static final int shooterSpeed = 3;
-
-	// Joystick controller
 	public static final int oneButton = 1;
 	public static final int twoButton = 2;
 	public static final int threeButton = 3;
 	public static final int fourButton = 4;
 	public static final int fiveButton = 5;
+
+	// Xbox controller button profile
+	// public static final int lxAxis = 0;
+	// public static final int lyAxis = 1;
+	// public static final int leftTrigger = 2;
+	// public static final int rightTrigger = 3;
+	// public static final int rxAxis = 4;
+	// public static final int ryAxis = 5;
+	// public static final int aButton = 1;
+	// public static final int bButton = 2;
+	// public static final int xButton = 3;
+	// public static final int yButton = 4;
+	// public static final int leftBumper = 5;
+	// public static final int rightBumper = 6;
+	// public static final int backButton = 7;
+	// public static final int startButton = 8;
 
 	// Controllers
 	public static final int gamepad1 = 0;
@@ -29,7 +43,7 @@ public final class Constants {
 	public static final int rightmotor1 = 0;
 	public static final int rightmotor2 = 1;
 	public static final int rightmotor3 = 2;
-	public static final int climberMotor = 6;
+	public static final int climberMotor = 12;
 	public static final int indexMotor1 = 10;
 	public static final int indexmotor2 = 9;
 	public static final int shooterMotor = 7;
