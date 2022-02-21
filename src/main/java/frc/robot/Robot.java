@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-// import frc.robot.commands.ShooterCommand;
 import frc.robot.auto.AutoCommandGroup;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.subsystems.DrivingSubsystem;
@@ -16,6 +15,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public static ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  public static HopperSubsystem hopperSubsystem = new HopperSubsystem();
 
   public static DrivingCommand drivingCommand = new DrivingCommand();
 

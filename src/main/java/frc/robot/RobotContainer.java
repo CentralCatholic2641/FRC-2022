@@ -20,14 +20,12 @@ public class RobotContainer {
   // Constants.rightBumper);
   // public JoystickButton lowButton = new JoystickButton(gamepad1,
   // Constants.leftBumper);
-  // public JoystickButton climbUpButton = new JoystickButton(gamepad1,
-  // Constants.xButton);
-  // public JoystickButton climbDownButton = new JoystickButton(gamepad1,
-  // Constants.bButton);
+  public JoystickButton climbUpButton = new JoystickButton(gamepad1, Constants.threeButton);
+  public JoystickButton climbDownButton = new JoystickButton(gamepad1, Constants.fourButton);
   // public JoystickButton indexerButton1 = new JoystickButton(gamepad1,
   // Constants.fourButton);
-  public JoystickButton indexerButton2 = new JoystickButton(gamepad1,
-      Constants.fiveButton);
+  // public JoystickButton indexerButton2 = new JoystickButton(gamepad1,
+  // Constants.fiveButton);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -35,12 +33,11 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // indexerButton1.whileHeld(new IndexerCommand(true));
-    indexerButton2.whileHeld(new ClimberCommand(1));
+    // indexerButton2.whileHeld(new ClimberCommand(1));
     // intakeButton.whileHeld(new IntakeCommand());
     // highButton.whileHeld(new ShooterCommand(1));
     // lowButton.whileHeld(new ShooterCommand(0));
-
-    // climbUpButton.whileHeld(new ClimberCommand(1));
-    // climbDownButton.whileHeld(new ClimberCommand(-1));
+    climbUpButton.whileHeld(new ClimberCommand(1));
+    climbDownButton.whileHeld(new ClimberCommand(-1));
   }
 }

@@ -43,11 +43,11 @@ public final class Constants {
 	public static final int rightmotor1 = 0;
 	public static final int rightmotor2 = 1;
 	public static final int rightmotor3 = 2;
-	public static final int climberMotor = 12;
-	public static final int indexMotor1 = 10;
-	public static final int indexmotor2 = 9;
+	public static final int climberMotor = 6;
 	public static final int shooterMotor = 7;
 	public static final int intakemotor1 = 8;
+	public static final int indexmotor2 = 9;
+	public static final int indexMotor1 = 10;
 
 	public static double indexerSpeed = 0.6;
 
