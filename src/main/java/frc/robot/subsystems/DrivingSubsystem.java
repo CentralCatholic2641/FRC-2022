@@ -14,22 +14,22 @@ import frc.robot.commands.DrivingCommand;
 
 public class DrivingSubsystem extends SubsystemBase {
 
-  public WPI_TalonFX leftmotor1 = new WPI_TalonFX(Constants.leftmotor1);
-  public WPI_TalonFX leftmotor2 = new WPI_TalonFX(Constants.leftmotor2);
-  public WPI_TalonFX leftmotor3 = new WPI_TalonFX(Constants.leftmotor3);
+  public WPI_TalonFX leftMotor1 = new WPI_TalonFX(Constants.leftMotor1);
+  public WPI_TalonFX leftMotor2 = new WPI_TalonFX(Constants.leftMotor2);
+  public WPI_TalonFX leftMotor3 = new WPI_TalonFX(Constants.leftMotor3);
 
-  public MotorControllerGroup leftgroup = new MotorControllerGroup(leftmotor1, leftmotor2, leftmotor3);
+  public MotorControllerGroup leftGroup = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 
-  public WPI_TalonFX rightmotor1 = new WPI_TalonFX(Constants.rightmotor1);
-  public WPI_TalonFX rightmotor2 = new WPI_TalonFX(Constants.rightmotor2);
-  public WPI_TalonFX rightmotor3 = new WPI_TalonFX(Constants.rightmotor3);
+  public WPI_TalonFX rightMotor1 = new WPI_TalonFX(Constants.rightMotor1);
+  public WPI_TalonFX rightMotor2 = new WPI_TalonFX(Constants.rightMotor2);
+  public WPI_TalonFX rightMotor3 = new WPI_TalonFX(Constants.rightMotor3);
 
-  public MotorControllerGroup rightgroup = new MotorControllerGroup(rightmotor1, rightmotor2, rightmotor3);
+  public MotorControllerGroup rightGroup = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
   public WPI_TalonFX leftEncoder = new WPI_TalonFX(Constants.leftEncoder);
   public WPI_TalonFX rightEncoder = new WPI_TalonFX(Constants.rightEncoder);
 
-  public DifferentialDrive differentialDrive = new DifferentialDrive(leftgroup, rightgroup);
+  public DifferentialDrive differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
 
   public AHRS ahrs;
 
@@ -38,7 +38,7 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left, -right, true);
+    differentialDrive.tankDrive(-left / 2, -right / 2, true);
   }
 
   public DrivingSubsystem() {

@@ -5,25 +5,30 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class HopperSubsystem extends SubsystemBase {
-  public WPI_TalonSRX hopperMotor = new WPI_TalonSRX(Constants.intakemotor1);
+  public WPI_TalonSRX hopperMotor1 = new WPI_TalonSRX(Constants.hopperMotor1);
+  public WPI_TalonSRX hopperMotor2 = new WPI_TalonSRX(Constants.hopperMotor2);
 
   public HopperSubsystem() {
   }
 
   public void forward() {
-    hopperMotor.set(1);
+    hopperMotor1.set(-0.5);
+    hopperMotor2.set(0.5);
   }
 
   public void backward() {
-    hopperMotor.set(-1);
+    hopperMotor1.set(0.5);
+    hopperMotor2.set(-0.5);
   }
 
   public void stop() {
-    hopperMotor.set(0);
+    hopperMotor1.set(0);
+    hopperMotor2.set(0);
   }
 
   @Override

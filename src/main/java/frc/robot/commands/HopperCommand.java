@@ -8,7 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class HopperCommand extends CommandBase {
-  public HopperCommand() {
+
+  int direction;
+
+  public HopperCommand(int input) {
+    direction = input;
     addRequirements(Robot.hopperSubsystem);
   }
 
@@ -18,12 +22,16 @@ public class HopperCommand extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.hopperSubsystem.forward();
+    if (direction == 1) {
+      Robot.hopperSubsystem.forward();
+    } else {
+      Robot.hopperSubsystem.backward();
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.intakeSubsystem.stop();
+    Robot.hopperSubsystem.stop();
   }
 
   @Override

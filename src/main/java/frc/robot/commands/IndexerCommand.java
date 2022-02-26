@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class IndexerCommand extends CommandBase {
-  boolean goForward;
+  int direction;
 
-  public IndexerCommand(boolean goforward) {
+  public IndexerCommand(int input) {
+    direction = input;
     addRequirements(Robot.indexerSubsystem);
-    goForward = goforward;
   }
 
   @Override
@@ -21,15 +21,16 @@ public class IndexerCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (goForward == true) {
-      Robot.indexerSubsystem.goForward();
+    if (direction == 1) {
+      Robot.indexerSubsystem.forward();
     } else {
-      Robot.indexerSubsystem.goBackward();
+      Robot.indexerSubsystem.backward();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
+    Robot.indexerSubsystem.stop();
   }
 
   @Override

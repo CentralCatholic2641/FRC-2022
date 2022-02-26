@@ -6,15 +6,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
-  public WPI_TalonSRX indexmotor1 = new WPI_TalonSRX(Constants.indexMotor1);
-  public WPI_TalonSRX indexmotor2 = new WPI_TalonSRX(Constants.indexmotor2);
-
-  public MotorControllerGroup indexergroup = new MotorControllerGroup(indexmotor1, indexmotor2);
+  public WPI_TalonSRX indexMotor = new WPI_TalonSRX(Constants.indexMotor);
 
   public IndexerSubsystem() {
   }
@@ -23,11 +19,15 @@ public class IndexerSubsystem extends SubsystemBase {
   public void periodic() {
   }
 
-  public void goForward() {
-    indexergroup.set(Constants.indexerSpeed);
+  public void forward() {
+    indexMotor.set(0.5);
   }
 
-  public void goBackward() {
-    indexergroup.set(-Constants.indexerSpeed);
+  public void backward() {
+    indexMotor.set(-0.5);
+  }
+
+  public void stop() {
+    indexMotor.set(0);
   }
 }

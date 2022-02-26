@@ -8,8 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class IntakeCommand extends CommandBase {
-  public IntakeCommand() {
-    // addRequirements(Robot.intakeSubsystem);
+
+  int direction;
+
+  public IntakeCommand(int input) {
+    direction = input;
+    addRequirements(Robot.intakeSubsystem);
   }
 
   @Override
@@ -18,7 +22,15 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    Robot.intakeSubsystem.start();
+    if (direction == 1) {
+      Robot.intakeSubsystem.forward();
+    } else if (direction == -1) {
+      Robot.intakeSubsystem.backward();
+    } else if (direction == 2) {
+      Robot.intakeSubsystem.raise();
+    } else if (direction == -2) {
+      Robot.intakeSubsystem.lower();
+    }
   }
 
   @Override
