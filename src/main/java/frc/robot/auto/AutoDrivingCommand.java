@@ -11,19 +11,19 @@ import frc.robot.Constants;
 
 public class AutoDrivingCommand extends CommandBase {
 
-  double lOutput = 0;
-  double lI = 0;
-  double lDistanceTravelled = 0;
-  double lError;
-  double lErrorPrevious;
-  double lD = 0;
+  double output = 0;
+  double I = 0;
+  double distanceTravelled = 0;
+  double error;
+  double errorPrevious;
+  double D = 0;
   double setpoint = 0;
 
   public AutoDrivingCommand(double distance) {
     addRequirements(Robot.drivingSubsystem);
     setpoint = distance;
-    lErrorPrevious = distance;
-    lError = distance;
+    errorPrevious = distance;
+    error = distance;
   }
 
   @Override
@@ -36,27 +36,27 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    lDistanceTravelled = ((-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / Constants.oneRotation)
+    distanceTravelled = ((-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / Constants.oneRotation)
         * (Math.PI * Constants.wheelDiameter)) / 12;
 
-    lError = setpoint - lDistanceTravelled;
-    lI += (lError * 1);
-    lD = (lError - lErrorPrevious);
-    lOutput = ((Constants.kP * lError) + (Constants.kI * lI) + (Constants.kD * lD))
+    error = setpoint - distanceTravelled;
+    I += (error * 1);
+    D = (error - errorPrevious);
+    output = ((Constants.kP * error) + (Constants.kI * I) + (Constants.kD * D))
         / ((Constants.kP) * setpoint);
-    lErrorPrevious = lError;
+    errorPrevious = error;
 
-    System.out.println("distance: " + lDistanceTravelled + ", encoder: "
-        + Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() + ", error: " + lError + ", output:"
-        + lOutput);
+    System.out.println("distance: " + distanceTravelled + ", encoder: "
+        + Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() + ", error: " + error + ", output:"
+        + output);
 
     SmartDashboard.putNumber("encoder", -Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition());
     SmartDashboard.putNumber("rotations",
         (-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / Constants.oneRotation));
-    SmartDashboard.putNumber("error", lError);
-    SmartDashboard.putNumber("output", lOutput);
+    SmartDashboard.putNumber("error", error);
+    SmartDashboard.putNumber("output", output);
     SmartDashboard.putNumber("angle", Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation);
-    SmartDashboard.putNumber("travelled", lDistanceTravelled);
+    SmartDashboard.putNumber("travelled", distanceTravelled);
   }
 
   @Override
@@ -66,8 +66,8 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (lOutput > 0.25) {
-      Robot.drivingSubsystem.oDrive(-Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation, lOutput);
+    if (output > 0.25) {
+      Robot.drivingSubsystem.oDrive(-Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation, output);
       return false;
     } else {
       Robot.drivingSubsystem.tDrive(0, 0);
