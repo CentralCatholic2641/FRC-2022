@@ -18,10 +18,11 @@ public class RobotContainer {
   public JoystickButton intakeBackwardButton = new JoystickButton(gamepad1, Constants.backButton);
   public JoystickButton intakeRaiseButton = new JoystickButton(gamepad1, Constants.xButton);
   public JoystickButton intakeLowerButton = new JoystickButton(gamepad1, Constants.bButton);
-  public JoystickButton hopperForwardButton = new JoystickButton(gamepad1, Constants.rightBumper);
+  public JoystickButton hopperForwardButton = new JoystickButton(gamepad1,
+      Constants.rightBumper);
   // public JoystickButton hopperBackwardButton = new JoystickButton(gamepad1,
   // Constants.startButton);
-  // public JoystickButton highButton = new JoystickButton(gamepad1,
+  // public JoystickButton shooterButton = new JoystickButton(gamepad1,
   // Constants.rightBumper);
   // public JoystickButton lowButton = new JoystickButton(gamepad1,
   // Constants.leftBumper);
@@ -45,7 +46,7 @@ public class RobotContainer {
     intakeBackwardButton.whileHeld(new IntakeCommand(-1));
     hopperForwardButton.whileHeld(new HopperCommand(1));
     // hopperBackwardButton.whileHeld(new HopperCommand(-1));
-    // highButton.whileHeld(new ShooterCommand(1));
+    // shooterButton.whileHeld(new ShooterCommand(1));
     // lowButton.whileHeld(new ShooterCommand(0));
     climbUpButton.whileHeld(new ClimberCommand(1));
     climbDownButton.whileHeld(new ClimberCommand(-1));

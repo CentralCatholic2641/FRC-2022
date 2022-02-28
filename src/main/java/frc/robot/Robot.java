@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     if (autoCommand != null)
       autoCommand.cancel();
-    // compressor.enableDigital();
+    compressor.enableDigital();
   }
 
   @Override
