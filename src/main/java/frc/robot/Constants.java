@@ -33,8 +33,8 @@ public final class Constants {
 	public static final int startButton = 8;
 
 	// Controllers
-	public static final int gamepad1 = 0;
-	public static final int gamepad2 = 1;
+	public static final int controller1 = 0;
+	public static final int controller2 = 1;
 
 	// Drivetrain motors
 	public static final int leftMotor1 = 3;

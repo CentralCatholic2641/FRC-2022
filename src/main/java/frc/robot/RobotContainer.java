@@ -4,51 +4,57 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.ClimberCommand;
+import frc.robot.commands.FireCommand;
 import frc.robot.commands.HopperCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeCommand;
-// import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.ShooterCommand;
 
 public class RobotContainer {
-  public Joystick gamepad1 = new Joystick(Constants.gamepad1);
-  public JoystickButton intakeForwardButton = new JoystickButton(gamepad1, Constants.leftBumper);
-  public JoystickButton intakeBackwardButton = new JoystickButton(gamepad1, Constants.backButton);
-  public JoystickButton intakeRaiseButton = new JoystickButton(gamepad1, Constants.xButton);
-  public JoystickButton intakeLowerButton = new JoystickButton(gamepad1, Constants.bButton);
-  public JoystickButton hopperForwardButton = new JoystickButton(gamepad1,
-      Constants.rightBumper);
-  // public JoystickButton hopperBackwardButton = new JoystickButton(gamepad1,
-  // Constants.startButton);
-  // public JoystickButton shooterButton = new JoystickButton(gamepad1,
-  // Constants.rightBumper);
-  // public JoystickButton lowButton = new JoystickButton(gamepad1,
-  // Constants.leftBumper);
-  public JoystickButton climbUpButton = new JoystickButton(gamepad1, Constants.yButton);
-  public JoystickButton climbDownButton = new JoystickButton(gamepad1, Constants.aButton);
-  public JoystickButton indexerForwardButton = new JoystickButton(gamepad1,
-      Constants.startButton);
-  // public JoystickButton indexerBackwardButton = new JoystickButton(gamepad1,
-  // Constants.bButton);
+
+  // int driverDirection = 1;
+  int controllerDirection = 1;
+
+  public XboxController driver = new XboxController(Constants.controller1);
+  public JoystickButton driverFireButton = new JoystickButton(driver, Constants.rightBumper);
+
+  public XboxController controller = new XboxController(Constants.controller2);
+  public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.rightBumper);
+  public JoystickButton controllerIntakeButton = new JoystickButton(controller, Constants.aButton);
+  public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.xButton);
+  public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.yButton);
+  public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.bButton);
+
+  public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
+  public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
+  public POVButton controllerIntakeDownDpad = new POVButton(controller, 90);
+  public POVButton controllerIntakeUpDpad = new POVButton(controller, 270);
 
   public RobotContainer() {
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    indexerForwardButton.whileHeld(new IndexerCommand(1));
-    // indexerBackwardButton.whileHeld(new IndexerCommand(-1));
-    intakeLowerButton.whileHeld(new IntakeCommand(-2));
-    intakeRaiseButton.whileHeld(new IntakeCommand(2));
-    intakeForwardButton.whileHeld(new IntakeCommand(1));
-    intakeBackwardButton.whileHeld(new IntakeCommand(-1));
-    hopperForwardButton.whileHeld(new HopperCommand(1));
-    // hopperBackwardButton.whileHeld(new HopperCommand(-1));
-    // shooterButton.whileHeld(new ShooterCommand(1));
-    // lowButton.whileHeld(new ShooterCommand(0));
-    climbUpButton.whileHeld(new ClimberCommand(1));
-    climbDownButton.whileHeld(new ClimberCommand(-1));
+    if (controller.getRawButton(Constants.leftBumper)) {
+      controllerDirection = -1;
+    } else {
+      controllerDirection = 1;
+    }
+
+    controllerFireButton.whileHeld(new FireCommand(1));
+    controllerIntakeButton.whileHeld(new IntakeCommand(controllerDirection));
+    controllerHopperButton.whileHeld(new HopperCommand(controllerDirection));
+    controllerIndexerButton.whileHeld(new IndexerCommand(controllerDirection));
+    controllerShooterButton.whileHeld(new ShooterCommand(controllerDirection));
+    controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
+    controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
+    controllerIntakeUpDpad.whileHeld(new IntakeCommand(2));
+    controllerIntakeDownDpad.whileHeld(new IntakeCommand(-2));
+
+    driverFireButton.whileHeld(new FireCommand(1));
   }
 }
