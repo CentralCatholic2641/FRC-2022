@@ -39,15 +39,23 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
+    Robot.intakeSubsystem.raise();
   }
 
   @Override
   public void robotPeriodic() {
-    if (Robot.robotContainer.controller.getRawButtonPressed(Constants.leftBumper)) {
-      Robot.robotContainer.controllerDirection = -1;
+    if (Robot.robotContainer.controller.getRawButton(Constants.leftBumper)) {
+      Robot.robotContainer.controllerShift = true;
     } else {
-      Robot.robotContainer.controllerDirection = 1;
+      Robot.robotContainer.controllerShift = false;
     }
+
+    if (Robot.robotContainer.driver.getRawButton(Constants.leftBumper)) {
+      Robot.robotContainer.driverShift = true;
+    } else {
+      Robot.robotContainer.driverShift = false;
+    }
+
     CommandScheduler.getInstance().run();
   }
 

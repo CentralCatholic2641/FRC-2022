@@ -18,7 +18,7 @@ public class IntakeMotorCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (Robot.robotContainer.controllerDirection == 1) {
+    if (Robot.robotContainer.controllerShift == false) {
       Robot.intakeSubsystem.forward();
     } else {
       Robot.intakeSubsystem.backward();

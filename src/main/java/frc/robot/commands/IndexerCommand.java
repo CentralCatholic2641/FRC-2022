@@ -18,7 +18,7 @@ public class IndexerCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (Robot.robotContainer.controllerDirection == 1) {
+    if (Robot.robotContainer.controllerShift == false) {
       Robot.indexerSubsystem.forward();
     } else {
       Robot.indexerSubsystem.backward();

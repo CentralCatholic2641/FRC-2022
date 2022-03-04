@@ -32,26 +32,14 @@ public class RobotContainer {
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
   public POVButton controllerIntakeToggle = new POVButton(controller, 90);
 
-  public int controllerDirection = 1;
+  public boolean controllerShift = false;
+  public boolean driverShift = false;
 
   public RobotContainer() {
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    // int driverSpeed = 1;
-    System.out.println(controller.getRawButtonPressed(Constants.leftBumper));
-    if (controller.getRawButtonPressed(Constants.leftBumper)) {
-      controllerDirection = -1;
-    } else {
-      controllerDirection = 1;
-    }
-
-    // if (driver.getRawButton(Constants.leftBumper)) {
-    // driverSpeed = -1;
-    // } else {
-    // }
-
     controllerIntakeButton.whileHeld(new IntakeMotorCommand());
     controllerHopperButton.whileHeld(new HopperCommand());
     controllerIndexerButton.whileHeld(new IndexerCommand());

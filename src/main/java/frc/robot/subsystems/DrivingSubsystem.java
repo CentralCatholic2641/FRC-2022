@@ -38,7 +38,7 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left * 0.85, -right / 0.85, true);
+    differentialDrive.tankDrive(-left * 0.85, -right * 0.85, true);
   }
 
   public DrivingSubsystem() {

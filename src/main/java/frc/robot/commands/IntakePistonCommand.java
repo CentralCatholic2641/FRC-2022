@@ -15,15 +15,15 @@ public class IntakePistonCommand extends CommandBase {
 
   @Override
   public void initialize() {
-  }
-
-  @Override
-  public void execute() {
     if (Robot.intakeSubsystem.solenoid.get() == DoubleSolenoid.Value.kReverse) {
       Robot.intakeSubsystem.raise();
     } else {
       Robot.intakeSubsystem.lower();
     }
+  }
+
+  @Override
+  public void execute() {
   }
 
   @Override

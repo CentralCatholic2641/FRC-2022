@@ -18,7 +18,7 @@ public class HopperCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (Robot.robotContainer.controllerDirection == 1) {
+    if (Robot.robotContainer.controllerShift == false) {
       Robot.hopperSubsystem.forward();
     } else {
       Robot.hopperSubsystem.backward();
