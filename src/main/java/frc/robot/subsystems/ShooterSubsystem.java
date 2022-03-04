@@ -17,11 +17,11 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void highTarget() {
-    shooterMotor.set(0.5);
+    shooterMotor.set(0.7);
   }
 
   public void lowTarget() {
-    shooterMotor.set(0.5);
+    shooterMotor.set(0.38);
   }
 
   public void stop() {

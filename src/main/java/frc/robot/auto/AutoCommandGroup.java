@@ -6,11 +6,12 @@ package frc.robot.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
+import frc.robot.commands.FireCommand;
 
 public class AutoCommandGroup extends SequentialCommandGroup {
   public AutoCommandGroup() {
     Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
     Robot.drivingSubsystem.ahrs.zeroYaw();
-    addCommands(new AutoDrivingCommand(20.0));
+    addCommands(new AutoDrivingCommand(6.0), new FireCommand(2));
   }
 }

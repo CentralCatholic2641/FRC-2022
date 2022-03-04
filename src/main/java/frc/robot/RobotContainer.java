@@ -11,16 +11,15 @@ import frc.robot.commands.ClimberCommand;
 import frc.robot.commands.FireCommand;
 import frc.robot.commands.HopperCommand;
 import frc.robot.commands.IndexerCommand;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeMotorCommand;
+import frc.robot.commands.IntakePistonCommand;
 import frc.robot.commands.ShooterCommand;
 
 public class RobotContainer {
 
-  // int driverDirection = 1;
-  int controllerDirection = 1;
-
   public XboxController driver = new XboxController(Constants.controller1);
-  public JoystickButton driverFireButton = new JoystickButton(driver, Constants.rightBumper);
+  public JoystickButton driverFireLowButton = new JoystickButton(driver, Constants.rightBumper);
+  public JoystickButton driverFireHighButton = new JoystickButton(driver, Constants.yButton);
 
   public XboxController controller = new XboxController(Constants.controller2);
   public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.rightBumper);
@@ -31,30 +30,37 @@ public class RobotContainer {
 
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
-  public POVButton controllerIntakeDownDpad = new POVButton(controller, 90);
-  public POVButton controllerIntakeUpDpad = new POVButton(controller, 270);
+  public POVButton controllerIntakeToggle = new POVButton(controller, 90);
+
+  public int controllerDirection = 1;
 
   public RobotContainer() {
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    if (controller.getRawButton(Constants.leftBumper)) {
+    // int driverSpeed = 1;
+    System.out.println(controller.getRawButtonPressed(Constants.leftBumper));
+    if (controller.getRawButtonPressed(Constants.leftBumper)) {
       controllerDirection = -1;
     } else {
       controllerDirection = 1;
     }
 
-    controllerFireButton.whileHeld(new FireCommand(1));
-    controllerIntakeButton.whileHeld(new IntakeCommand(controllerDirection));
-    controllerHopperButton.whileHeld(new HopperCommand(controllerDirection));
-    controllerIndexerButton.whileHeld(new IndexerCommand(controllerDirection));
-    controllerShooterButton.whileHeld(new ShooterCommand(controllerDirection));
+    // if (driver.getRawButton(Constants.leftBumper)) {
+    // driverSpeed = -1;
+    // } else {
+    // }
+
+    controllerIntakeButton.whileHeld(new IntakeMotorCommand());
+    controllerHopperButton.whileHeld(new HopperCommand());
+    controllerIndexerButton.whileHeld(new IndexerCommand());
+    controllerShooterButton.whileHeld(new ShooterCommand(1));
     controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
     controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
-    controllerIntakeUpDpad.whileHeld(new IntakeCommand(2));
-    controllerIntakeDownDpad.whileHeld(new IntakeCommand(-2));
+    controllerIntakeToggle.whileHeld(new IntakePistonCommand());
 
-    driverFireButton.whileHeld(new FireCommand(1));
+    driverFireLowButton.whileHeld(new FireCommand(1));
+    driverFireHighButton.whileHeld(new FireCommand(2));
   }
 }

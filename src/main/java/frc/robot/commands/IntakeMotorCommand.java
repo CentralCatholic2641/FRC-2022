@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class IndexerCommand extends CommandBase {
-  public IndexerCommand() {
-    addRequirements(Robot.indexerSubsystem);
+public class IntakeMotorCommand extends CommandBase {
+  public IntakeMotorCommand() {
+    addRequirements(Robot.intakeSubsystem);
   }
 
   @Override
@@ -19,15 +19,15 @@ public class IndexerCommand extends CommandBase {
   @Override
   public void execute() {
     if (Robot.robotContainer.controllerDirection == 1) {
-      Robot.indexerSubsystem.forward();
+      Robot.intakeSubsystem.forward();
     } else {
-      Robot.indexerSubsystem.backward();
+      Robot.intakeSubsystem.backward();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.indexerSubsystem.stop();
+    Robot.intakeSubsystem.stop();
   }
 
   @Override

@@ -20,11 +20,11 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void forward() {
-    indexMotor.set(0.25);
+    indexMotor.set(0.35);
   }
 
   public void backward() {
-    indexMotor.set(-0.25);
+    indexMotor.set(-0.35);
   }
 
   public void stop() {

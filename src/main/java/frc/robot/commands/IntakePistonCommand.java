@@ -4,15 +4,12 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class IntakeCommand extends CommandBase {
-
-  int direction;
-
-  public IntakeCommand(int input) {
-    direction = input;
+public class IntakePistonCommand extends CommandBase {
+  public IntakePistonCommand() {
     addRequirements(Robot.intakeSubsystem);
   }
 
@@ -22,20 +19,15 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (direction == 1) {
-      Robot.intakeSubsystem.forward();
-    } else if (direction == -1) {
-      Robot.intakeSubsystem.backward();
-    } else if (direction == 2) {
+    if (Robot.intakeSubsystem.solenoid.get() == DoubleSolenoid.Value.kReverse) {
       Robot.intakeSubsystem.raise();
-    } else if (direction == -2) {
+    } else {
       Robot.intakeSubsystem.lower();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.intakeSubsystem.stop();
   }
 
   @Override

@@ -22,9 +22,9 @@ public class ShooterCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (shooterSpeed == 0) {
+    if (shooterSpeed == 1) {
       Robot.shooterSubsystem.lowTarget();
-    } else if (shooterSpeed == 1) {
+    } else if (shooterSpeed == 2) {
       Robot.shooterSubsystem.highTarget();
     }
   }

@@ -66,7 +66,7 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (output > 0.25) {
+    if (output > 0.4) {
       Robot.drivingSubsystem.oDrive(-Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation, output);
       return false;
     } else {

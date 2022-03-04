@@ -16,11 +16,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void up() {
-    climberMotor.set(0.25);
+    climberMotor.set(0.50);
   }
 
   public void down() {
-    climberMotor.set(-0.25);
+    climberMotor.set(-0.50);
   }
 
   public void stop() {

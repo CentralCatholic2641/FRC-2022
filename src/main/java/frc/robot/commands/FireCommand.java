@@ -9,24 +9,35 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class FireCommand extends CommandBase {
-
-  int direction;
+  int speed;
 
   public FireCommand(int input) {
-    direction = input;
+    speed = input;
     addRequirements(Robot.hopperSubsystem, Robot.indexerSubsystem, Robot.shooterSubsystem);
   }
 
   @Override
   public void initialize() {
+    if (speed == 1) {
+      Robot.shooterSubsystem.lowTarget();
+    } else if (speed == 2) {
+      Robot.shooterSubsystem.highTarget();
+    }
+    Timer.delay(1.5);
+    Robot.hopperSubsystem.forward();
+    Robot.indexerSubsystem.forward();
   }
 
   @Override
   public void execute() {
-    Robot.shooterSubsystem.highTarget();
-    Timer.delay(1);
-    Robot.hopperSubsystem.forward();
-    Robot.indexerSubsystem.forward();
+    // if (speed == 1) {
+    // Robot.shooterSubsystem.lowTarget();
+    // } else if (speed == 2) {
+    // Robot.shooterSubsystem.highTarget();
+    // }
+    // Timer.delay(1.5);
+    // Robot.hopperSubsystem.forward();
+    // Robot.indexerSubsystem.forward();
   }
 
   @Override
