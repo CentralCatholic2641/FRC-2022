@@ -4,22 +4,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class IntakePistonCommand extends CommandBase {
-  public IntakePistonCommand() {
-    addRequirements(Robot.intakeSubsystem);
+public class StopCommand extends CommandBase {
+  String stopping;
+  boolean finished = false;
+
+  public StopCommand(String toStop) {
+    stopping = toStop;
+    addRequirements(Robot.indexerSubsystem);
   }
 
   @Override
   public void initialize() {
-    if (Robot.intakeSubsystem.intakeSolenoid.get() == DoubleSolenoid.Value.kReverse) {
-      Robot.intakeSubsystem.raise();
-    } else {
-      Robot.intakeSubsystem.lower();
+    if (stopping == "indexer") {
+      Robot.indexerSubsystem.stop();
     }
+    end(false);
   }
 
   @Override
@@ -28,10 +30,11 @@ public class IntakePistonCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    finished = true;
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

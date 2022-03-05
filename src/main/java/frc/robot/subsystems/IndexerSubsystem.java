@@ -10,9 +10,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
-  public WPI_TalonSRX indexMotor = new WPI_TalonSRX(Constants.indexMotor);
+  public WPI_TalonSRX indexerMotor = new WPI_TalonSRX(Constants.indexerMotor);
 
   public IndexerSubsystem() {
+    indexerMotor.clearStickyFaults();
   }
 
   @Override
@@ -20,14 +21,14 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void forward() {
-    indexMotor.set(0.35);
+    indexerMotor.set(0.35);
   }
 
   public void backward() {
-    indexMotor.set(-0.35);
+    indexerMotor.set(-0.35);
   }
 
   public void stop() {
-    indexMotor.set(0);
+    indexerMotor.set(0);
   }
 }

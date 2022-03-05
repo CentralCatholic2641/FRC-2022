@@ -48,7 +48,7 @@ public final class Constants {
 	public static final int intakeMotor = 12;
 	public static final int hopperMotor1 = 13;
 	public static final int hopperMotor2 = 14;
-	public static final int indexMotor = 15;
+	public static final int indexerMotor = 15;
 
 	// Encoders
 	public static final int leftEncoder = 2;
@@ -64,5 +64,7 @@ public final class Constants {
 	public static final double wheelDiameter = 0.5;
 	public static final double driftCompensation = 0.04;
 	public static final int oneRotation = 2048;
-
+	public static final double rampSpeed = 0.5;
+	public static final double slowDriveFactor = 0.8;
+	public static final double slowRotateFactor = 0.5;
 }

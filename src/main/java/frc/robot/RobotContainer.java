@@ -7,12 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.BlockerCommand;
 import frc.robot.commands.ClimberCommand;
 import frc.robot.commands.FireCommand;
 import frc.robot.commands.HopperCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeMotorCommand;
 import frc.robot.commands.IntakePistonCommand;
+import frc.robot.commands.LockClimberCommand;
 import frc.robot.commands.ShooterCommand;
 
 public class RobotContainer {
@@ -20,6 +22,7 @@ public class RobotContainer {
   public XboxController driver = new XboxController(Constants.controller1);
   public JoystickButton driverFireLowButton = new JoystickButton(driver, Constants.rightBumper);
   public JoystickButton driverFireHighButton = new JoystickButton(driver, Constants.yButton);
+  public JoystickButton driverLockClimber = new JoystickButton(driver, Constants.aButton);
 
   public XboxController controller = new XboxController(Constants.controller2);
   public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.rightBumper);
@@ -31,6 +34,7 @@ public class RobotContainer {
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
   public POVButton controllerIntakeToggle = new POVButton(controller, 90);
+  public POVButton controllerBlockerToggle = new POVButton(controller, 270);
 
   public boolean controllerShift = false;
   public boolean driverShift = false;
@@ -40,15 +44,17 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    driverFireLowButton.whileHeld(new FireCommand(1, false));
+    driverFireHighButton.whileHeld(new FireCommand(2, false));
+    driverLockClimber.whenPressed(new LockClimberCommand(true));
+
     controllerIntakeButton.whileHeld(new IntakeMotorCommand());
     controllerHopperButton.whileHeld(new HopperCommand());
     controllerIndexerButton.whileHeld(new IndexerCommand());
-    controllerShooterButton.whileHeld(new ShooterCommand(1));
+    controllerShooterButton.whileHeld(new ShooterCommand(1, false));
     controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
     controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
     controllerIntakeToggle.whileHeld(new IntakePistonCommand());
-
-    driverFireLowButton.whileHeld(new FireCommand(1));
-    driverFireHighButton.whileHeld(new FireCommand(2));
+    controllerBlockerToggle.whileHeld(new BlockerCommand());
   }
 }

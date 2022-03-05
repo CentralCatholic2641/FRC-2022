@@ -10,45 +10,53 @@ import frc.robot.Robot;
 
 public class FireCommand extends CommandBase {
   int speed;
+  boolean finished = false;
+  boolean forceStopped;
 
-  public FireCommand(int input) {
+  public FireCommand(int input, boolean force) {
     speed = input;
-    addRequirements(Robot.hopperSubsystem, Robot.indexerSubsystem, Robot.shooterSubsystem);
+    forceStopped = force;
+    addRequirements(Robot.hopperSubsystem, Robot.indexerSubsystem, Robot.shooterSubsystem, Robot.intakeSubsystem);
   }
 
   @Override
   public void initialize() {
+    // Robot.intakeSubsystem.stop();
+    // Robot.hopperSubsystem.stop();
+  }
+
+  @Override
+  public void execute() {
     if (speed == 1) {
       Robot.shooterSubsystem.lowTarget();
     } else if (speed == 2) {
       Robot.shooterSubsystem.highTarget();
     }
-    Timer.delay(1.5);
+    Timer.delay(0.75);
+    Robot.intakeSubsystem.forward();
     Robot.hopperSubsystem.forward();
     Robot.indexerSubsystem.forward();
-  }
-
-  @Override
-  public void execute() {
-    // if (speed == 1) {
-    // Robot.shooterSubsystem.lowTarget();
-    // } else if (speed == 2) {
-    // Robot.shooterSubsystem.highTarget();
-    // }
-    // Timer.delay(1.5);
-    // Robot.hopperSubsystem.forward();
-    // Robot.indexerSubsystem.forward();
+    if (forceStopped) {
+      Timer.delay(1.5);
+      Robot.intakeSubsystem.stop();
+      Robot.hopperSubsystem.stop();
+      Robot.indexerSubsystem.stop();
+      Robot.shooterSubsystem.stop();
+      end(false);
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
+    Robot.intakeSubsystem.stop();
     Robot.hopperSubsystem.stop();
     Robot.indexerSubsystem.stop();
     Robot.shooterSubsystem.stop();
+    finished = true;
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -14,10 +13,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public WPI_TalonFX shooterMotor = new WPI_TalonFX(Constants.shooterMotor);
 
   public ShooterSubsystem() {
+    shooterMotor.clearStickyFaults();
   }
 
   public void highTarget() {
-    shooterMotor.set(0.7);
+    shooterMotor.set(0.8);
   }
 
   public void lowTarget() {
@@ -31,6 +31,5 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("encoder", shooterMotor.getSelectedSensorPosition());
   }
 }

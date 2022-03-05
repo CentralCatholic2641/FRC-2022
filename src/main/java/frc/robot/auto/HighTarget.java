@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.FireCommand;
 
-public class AutoCommandGroup extends SequentialCommandGroup {
-  public AutoCommandGroup() {
+public class HighTarget extends SequentialCommandGroup {
+  public HighTarget() {
     Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
     Robot.drivingSubsystem.ahrs.zeroYaw();
-    addCommands(new AutoDrivingCommand(6.0), new FireCommand(2));
+    Robot.intakeSubsystem.lower();
+    addCommands(new AutoDrivingCommand(6.0), new AutoDrivingCommand(-1.5), new FireCommand(2, false));
   }
 }

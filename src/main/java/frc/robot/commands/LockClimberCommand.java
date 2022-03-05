@@ -4,32 +4,37 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class IntakePistonCommand extends CommandBase {
-  public IntakePistonCommand() {
-    addRequirements(Robot.intakeSubsystem);
+public class LockClimberCommand extends CommandBase {
+  boolean direction;
+
+  public LockClimberCommand(boolean lock) {
+    direction = lock;
+    addRequirements(Robot.climberSubsystem);
   }
 
   @Override
   public void initialize() {
-    if (Robot.intakeSubsystem.intakeSolenoid.get() == DoubleSolenoid.Value.kReverse) {
-      Robot.intakeSubsystem.raise();
+    if (direction == true) {
+      Robot.climberSubsystem.lock();
     } else {
-      Robot.intakeSubsystem.lower();
+      Robot.climberSubsystem.release();
     }
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

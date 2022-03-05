@@ -20,15 +20,22 @@ public class DrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double left = Robot.robotContainer.driver.getRawAxis(Constants.lyAxis);
-    double right = Robot.robotContainer.driver.getRawAxis(Constants.ryAxis);
-    Robot.drivingSubsystem.tDrive(-left, right);
+    if (Robot.robotContainer.driverShift == true) {
+      double left = Robot.robotContainer.driver.getRawAxis(Constants.lyAxis);
+      double right = Robot.robotContainer.driver.getRawAxis(Constants.ryAxis);
+      Robot.drivingSubsystem.tDrive(-left, right);
+    } else {
+      double rotation = Robot.robotContainer.driver.getRawAxis(Constants.lxAxis);
+      double speed = Robot.robotContainer.driver.getRawAxis(Constants.ryAxis);
+      Robot.drivingSubsystem.aDrive(rotation, speed);
+    }
 
+    // Joystick arcade drive
     // double joystick1 =
     // Robot.robotContainer.controller1.getRawAxis(Constants.joystick2);
     // double joystick2 =
     // Robot.robotContainer.controller1.getRawAxis(Constants.joystick1);
-    // Robot.drivingSubsystem.oDrive(joystick1, -joystick2);
+    // Robot.drivingSubsystem.aDrive(joystick1, -joystick2);
   }
 
   @Override

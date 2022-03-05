@@ -21,6 +21,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/BlockerSubsystem": "Subsystem",
       "/LiveWindow/ClimberSubsystem": "Subsystem",
       "/LiveWindow/HopperSubsystem": "Subsystem",
       "/LiveWindow/IndexerSubsystem": "Subsystem",
@@ -38,18 +39,39 @@
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     },
     "windows": {
+      "/LiveWindow/BlockerSubsystem": {
+        "window": {
+          "name": "Blocker",
+          "visible": true
+        }
+      },
       "/LiveWindow/ClimberSubsystem": {
         "window": {
+          "name": "Climber",
           "visible": true
         }
       },
       "/LiveWindow/HopperSubsystem": {
         "window": {
+          "name": "Hopper",
           "visible": true
         }
       },
       "/LiveWindow/IndexerSubsystem": {
         "window": {
+          "name": "Indexer",
+          "visible": true
+        }
+      },
+      "/LiveWindow/IntakeSubsystem": {
+        "window": {
+          "name": "Intake",
+          "visible": true
+        }
+      },
+      "/LiveWindow/ShooterSubsystem": {
+        "window": {
+          "name": "Shooter",
           "visible": true
         }
       },

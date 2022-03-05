@@ -14,6 +14,8 @@ public class HopperSubsystem extends SubsystemBase {
   public WPI_TalonSRX hopperMotor2 = new WPI_TalonSRX(Constants.hopperMotor2);
 
   public HopperSubsystem() {
+    hopperMotor1.clearStickyFaults();
+    hopperMotor2.clearStickyFaults();
   }
 
   public void forward() {

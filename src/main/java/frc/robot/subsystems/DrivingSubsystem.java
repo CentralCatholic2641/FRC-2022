@@ -33,17 +33,25 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public AHRS ahrs;
 
-  public void oDrive(double rotation, double speed) {
-    differentialDrive.arcadeDrive(rotation / 2, speed, true);
+  public void aDrive(double rotation, double speed) {
+    differentialDrive.arcadeDrive(rotation * Constants.slowRotateFactor, speed * Constants.slowDriveFactor, true);
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left * 0.85, -right * 0.85, true);
+    differentialDrive.tankDrive(-left * Constants.slowDriveFactor, -right * Constants.slowDriveFactor, true);
   }
 
   public DrivingSubsystem() {
     ahrs = new AHRS();
     ahrs.zeroYaw();
+
+    leftMotor1.clearStickyFaults();
+    leftMotor2.clearStickyFaults();
+    leftMotor3.clearStickyFaults();
+
+    rightMotor1.clearStickyFaults();
+    rightMotor2.clearStickyFaults();
+    rightMotor3.clearStickyFaults();
   }
 
   public void periodic() {

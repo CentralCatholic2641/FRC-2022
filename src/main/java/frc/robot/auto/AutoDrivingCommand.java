@@ -4,7 +4,7 @@
 
 package frc.robot.auto;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.Constants;
@@ -18,9 +18,15 @@ public class AutoDrivingCommand extends CommandBase {
   double errorPrevious;
   double D = 0;
   double setpoint = 0;
+  int sign = 1;
 
   public AutoDrivingCommand(double distance) {
     addRequirements(Robot.drivingSubsystem);
+    if (distance > 0) {
+      sign = 1;
+    } else {
+      sign = -1;
+    }
     setpoint = distance;
     errorPrevious = distance;
     error = distance;
@@ -29,9 +35,9 @@ public class AutoDrivingCommand extends CommandBase {
   @Override
   public void initialize() {
     // Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
-    SmartDashboard.delete("error");
-    SmartDashboard.delete("output");
-    SmartDashboard.delete("angle");
+    // SmartDashboard.delete("error");
+    // SmartDashboard.delete("output");
+    // SmartDashboard.delete("angle");
   }
 
   @Override
@@ -42,21 +48,25 @@ public class AutoDrivingCommand extends CommandBase {
     error = setpoint - distanceTravelled;
     I += (error * 1);
     D = (error - errorPrevious);
-    output = ((Constants.kP * error) + (Constants.kI * I) + (Constants.kD * D))
-        / ((Constants.kP) * setpoint);
+    output = sign * ((Constants.kP * error) + (Constants.kI * I) + (Constants.kD * D))
+        / ((Constants.kP) * setpoint) / 2;
     errorPrevious = error;
 
-    System.out.println("distance: " + distanceTravelled + ", encoder: "
-        + Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() + ", error: " + error + ", output:"
-        + output);
+    // System.out.println("distance: " + distanceTravelled + ", encoder: "
+    // + Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() + ", error:
+    // " + error + ", output:"
+    // + output);
 
-    SmartDashboard.putNumber("encoder", -Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition());
-    SmartDashboard.putNumber("rotations",
-        (-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() / Constants.oneRotation));
-    SmartDashboard.putNumber("error", error);
-    SmartDashboard.putNumber("output", output);
-    SmartDashboard.putNumber("angle", Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation);
-    SmartDashboard.putNumber("travelled", distanceTravelled);
+    // SmartDashboard.putNumber("encoder",
+    // -Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("rotations",
+    // (-Robot.drivingSubsystem.leftEncoder.getSelectedSensorPosition() /
+    // Constants.oneRotation));
+    // SmartDashboard.putNumber("error", error);
+    // SmartDashboard.putNumber("output", output);
+    // SmartDashboard.putNumber("angle", Robot.drivingSubsystem.ahrs.getAngle() *
+    // Constants.driftCompensation);
+    // SmartDashboard.putNumber("travelled", distanceTravelled);
   }
 
   @Override
@@ -66,8 +76,10 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if (output > 0.4) {
-      Robot.drivingSubsystem.oDrive(-Robot.drivingSubsystem.ahrs.getAngle() * Constants.driftCompensation, output);
+    if (output > 0.35) {
+      // Robot.drivingSubsystem.tDrive(-Robot.drivingSubsystem.ahrs.getAngle() *
+      // Constants.driftCompensation, output);
+      Robot.drivingSubsystem.tDrive(-output, output);
       return false;
     } else {
       Robot.drivingSubsystem.tDrive(0, 0);
