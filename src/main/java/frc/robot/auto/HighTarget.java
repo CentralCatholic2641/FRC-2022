@@ -13,6 +13,6 @@ public class HighTarget extends SequentialCommandGroup {
     Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
     Robot.drivingSubsystem.ahrs.zeroYaw();
     Robot.intakeSubsystem.lower();
-    addCommands(new AutoDrivingCommand(6.0), new AutoDrivingCommand(-1.5), new FireCommand(2, false));
+    addCommands(new AutoDrivingCommand(6.0), new AutoDrivingCommand(-1.5), new FireCommand(2));
   }
 }

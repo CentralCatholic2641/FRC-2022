@@ -5,7 +5,6 @@
 package frc.robot;
 
 public final class Constants {
-
 	// Joystick button profile
 	// public static final int joystick1 = 1;
 	// public static final int joystick2 = 2;
@@ -57,14 +56,21 @@ public final class Constants {
 	// PID-related
 	public static final double kP = 0.8;
 	public static final double kI = 0.00475;
-	// public static final double kI = 0;
-	// public static final double kD = 0.5;
 	public static final double kD = 0.005;
 
+	// Motor speeds
+	public static final double driveFactor = 0.9;
+	public static final double rotateFactor = 0.8;
+	public static final double driveRampSpeed = 0.5;
+	public static final double climberSpeed = 0.35;
+	public static final double intakeSpeed = 0.35;
+	public static final double hopperSpeed = 0.5;
+	public static final double indexerSpeed = 0.35;
+	public static final double highShooterSpeed = 0.8;
+	public static final double lowShooterSpeed = 0.38;
+
+	// Other
 	public static final double wheelDiameter = 0.5;
 	public static final double driftCompensation = 0.04;
 	public static final int oneRotation = 2048;
-	public static final double rampSpeed = 0.5;
-	public static final double slowDriveFactor = 0.8;
-	public static final double slowRotateFactor = 0.5;
 }

@@ -10,12 +10,9 @@ import frc.robot.Robot;
 
 public class FireCommand extends CommandBase {
   int speed;
-  boolean finished = false;
-  boolean forceStopped;
 
-  public FireCommand(int input, boolean force) {
+  public FireCommand(int input) {
     speed = input;
-    forceStopped = force;
     addRequirements(Robot.hopperSubsystem, Robot.indexerSubsystem, Robot.shooterSubsystem, Robot.intakeSubsystem);
   }
 
@@ -23,10 +20,6 @@ public class FireCommand extends CommandBase {
   public void initialize() {
     // Robot.intakeSubsystem.stop();
     // Robot.hopperSubsystem.stop();
-  }
-
-  @Override
-  public void execute() {
     if (speed == 1) {
       Robot.shooterSubsystem.lowTarget();
     } else if (speed == 2) {
@@ -36,14 +29,10 @@ public class FireCommand extends CommandBase {
     Robot.intakeSubsystem.forward();
     Robot.hopperSubsystem.forward();
     Robot.indexerSubsystem.forward();
-    if (forceStopped) {
-      Timer.delay(1.5);
-      Robot.intakeSubsystem.stop();
-      Robot.hopperSubsystem.stop();
-      Robot.indexerSubsystem.stop();
-      Robot.shooterSubsystem.stop();
-      end(false);
-    }
+  }
+
+  @Override
+  public void execute() {
   }
 
   @Override
@@ -52,11 +41,10 @@ public class FireCommand extends CommandBase {
     Robot.hopperSubsystem.stop();
     Robot.indexerSubsystem.stop();
     Robot.shooterSubsystem.stop();
-    finished = true;
   }
 
   @Override
   public boolean isFinished() {
-    return finished;
+    return false;
   }
 }

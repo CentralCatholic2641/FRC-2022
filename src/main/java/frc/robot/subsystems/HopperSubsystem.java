@@ -19,18 +19,18 @@ public class HopperSubsystem extends SubsystemBase {
   }
 
   public void forward() {
-    hopperMotor1.set(-0.5);
-    hopperMotor2.set(0.5);
+    hopperMotor1.set(-Constants.hopperSpeed);
+    hopperMotor2.set(Constants.hopperSpeed);
   }
 
   public void backward() {
-    hopperMotor1.set(0.5);
-    hopperMotor2.set(-0.5);
+    hopperMotor1.set(Constants.hopperSpeed);
+    hopperMotor2.set(-Constants.hopperSpeed);
   }
 
   public void stop() {
-    hopperMotor1.set(0);
-    hopperMotor2.set(0);
+    hopperMotor1.stopMotor();
+    hopperMotor2.stopMotor();
   }
 
   @Override

@@ -5,10 +5,10 @@
 package frc.robot.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.FireCommand;
 
 public class AutoForFlorida extends SequentialCommandGroup {
   public AutoForFlorida() {
-    addCommands(new ShooterCommand(1, true), new AutoDrivingCommand(6.0));
+    addCommands(new FireCommand(1).withTimeout(2), new AutoDrivingCommand(6.0));
   }
 }

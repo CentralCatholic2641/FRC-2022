@@ -17,15 +17,15 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void highTarget() {
-    shooterMotor.set(0.8);
+    shooterMotor.set(Constants.highShooterSpeed);
   }
 
   public void lowTarget() {
-    shooterMotor.set(0.38);
+    shooterMotor.set(Constants.lowShooterSpeed);
   }
 
   public void stop() {
-    shooterMotor.set(0);
+    shooterMotor.stopMotor();
     shooterMotor.setSelectedSensorPosition(0, 0, 0);
   }
 

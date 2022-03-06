@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -16,6 +17,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public ClimberSubsystem() {
     climberMotor.clearStickyFaults();
+    release();
   }
 
   public void lock() {
@@ -27,18 +29,19 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void up() {
-    climberMotor.set(0.35);
+    climberMotor.set(Constants.climberSpeed);
   }
 
   public void down() {
-    climberMotor.set(-0.35);
+    climberMotor.set(-Constants.climberSpeed);
   }
 
   public void stop() {
-    climberMotor.set(0);
+    climberMotor.stopMotor();
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Climber Lock", climberLock.get() == DoubleSolenoid.Value.kReverse);
   }
 }

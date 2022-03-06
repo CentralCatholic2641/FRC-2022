@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -34,11 +35,34 @@ public class DrivingSubsystem extends SubsystemBase {
   public AHRS ahrs;
 
   public void aDrive(double rotation, double speed) {
-    differentialDrive.arcadeDrive(rotation * Constants.slowRotateFactor, speed * Constants.slowDriveFactor, true);
+    differentialDrive.arcadeDrive(rotation * Constants.rotateFactor, speed * Constants.driveFactor, true);
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left * Constants.slowDriveFactor, -right * Constants.slowDriveFactor, true);
+    differentialDrive.tankDrive(-left * Constants.driveFactor, -right * Constants.driveFactor, true);
+  }
+
+  public void halt() {
+    leftMotor1.configOpenloopRamp(0);
+    leftMotor2.configOpenloopRamp(0);
+    leftMotor3.configOpenloopRamp(0);
+    rightMotor1.configOpenloopRamp(0);
+    rightMotor2.configOpenloopRamp(0);
+    rightMotor3.configOpenloopRamp(0);
+
+    leftMotor1.setNeutralMode(NeutralMode.Brake);
+    leftMotor2.setNeutralMode(NeutralMode.Brake);
+    leftMotor3.setNeutralMode(NeutralMode.Brake);
+    rightMotor1.setNeutralMode(NeutralMode.Brake);
+    rightMotor2.setNeutralMode(NeutralMode.Brake);
+    rightMotor3.setNeutralMode(NeutralMode.Brake);
+
+    leftMotor1.stopMotor();
+    leftMotor2.stopMotor();
+    leftMotor3.stopMotor();
+    rightMotor1.stopMotor();
+    rightMotor2.stopMotor();
+    rightMotor3.stopMotor();
   }
 
   public DrivingSubsystem() {
@@ -48,7 +72,6 @@ public class DrivingSubsystem extends SubsystemBase {
     leftMotor1.clearStickyFaults();
     leftMotor2.clearStickyFaults();
     leftMotor3.clearStickyFaults();
-
     rightMotor1.clearStickyFaults();
     rightMotor2.clearStickyFaults();
     rightMotor3.clearStickyFaults();

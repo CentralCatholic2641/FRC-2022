@@ -7,15 +7,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.BlockerCommand;
+
 import frc.robot.commands.ClimberCommand;
 import frc.robot.commands.FireCommand;
 import frc.robot.commands.HopperCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeMotorCommand;
 import frc.robot.commands.IntakePistonCommand;
-import frc.robot.commands.LockClimberCommand;
 import frc.robot.commands.ShooterCommand;
+
+import frc.robot.instants.ClimberLockInstant;
 
 public class RobotContainer {
 
@@ -34,7 +35,7 @@ public class RobotContainer {
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
   public POVButton controllerIntakeToggle = new POVButton(controller, 90);
-  public POVButton controllerBlockerToggle = new POVButton(controller, 270);
+  public POVButton controllerClimberLockToggle = new POVButton(controller, 270);
 
   public boolean controllerShift = false;
   public boolean driverShift = false;
@@ -44,9 +45,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    driverFireLowButton.whileHeld(new FireCommand(1, false));
-    driverFireHighButton.whileHeld(new FireCommand(2, false));
-    driverLockClimber.whenPressed(new LockClimberCommand(true));
+    driverFireLowButton.whileHeld(new FireCommand(1));
+    driverFireHighButton.whileHeld(new FireCommand(2));
 
     controllerIntakeButton.whileHeld(new IntakeMotorCommand());
     controllerHopperButton.whileHeld(new HopperCommand());
@@ -55,6 +55,6 @@ public class RobotContainer {
     controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
     controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
     controllerIntakeToggle.whileHeld(new IntakePistonCommand());
-    controllerBlockerToggle.whileHeld(new BlockerCommand());
+    controllerClimberLockToggle.whenPressed(new ClimberLockInstant());
   }
 }

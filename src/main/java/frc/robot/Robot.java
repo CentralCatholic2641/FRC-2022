@@ -4,17 +4,18 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoForFlorida;
 import frc.robot.commands.DrivingCommand;
+import frc.robot.initializers.AutonomousInit;
+import frc.robot.initializers.RobotInit;
+import frc.robot.initializers.TeleopInit;
 import frc.robot.subsystems.DrivingSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.BlockerSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 
@@ -29,15 +30,13 @@ public class Robot extends TimedRobot {
   public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public static ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public static HopperSubsystem hopperSubsystem = new HopperSubsystem();
-  public static BlockerSubsystem blockerSubsystem = new BlockerSubsystem();
 
-  public static DrivingCommand drivingCommand = new DrivingCommand();
+  static DrivingCommand drivingCommand = new DrivingCommand();
 
   @Override
   public void robotInit() {
+    new RobotInit();
     robotContainer = new RobotContainer();
-    Robot.intakeSubsystem.compressor.enableDigital();
-    CameraServer.startAutomaticCapture();
   }
 
   @Override
@@ -68,22 +67,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    Robot.intakeSubsystem.compressor.enableDigital();
-    // Robot.intakeSubsystem.lower();
-    // Robot.intakeSubsystem.forward();
-    // Robot.hopperSubsystem.forward();
-    Robot.indexerSubsystem.forward();
-
-    Robot.drivingSubsystem.leftMotor1.configOpenloopRamp(0);
-    Robot.drivingSubsystem.leftMotor2.configOpenloopRamp(0);
-    Robot.drivingSubsystem.leftMotor3.configOpenloopRamp(0);
-    Robot.drivingSubsystem.rightMotor1.configOpenloopRamp(0);
-    Robot.drivingSubsystem.rightMotor2.configOpenloopRamp(0);
-    Robot.drivingSubsystem.rightMotor3.configOpenloopRamp(0);
-    Robot.drivingSubsystem.leftEncoder.setSelectedSensorPosition(0);
+    new AutonomousInit();
 
     autoCommand = new AutoForFlorida();
-
     CommandScheduler.getInstance().registerSubsystem(drivingSubsystem);
     if (autoCommand != null)
       autoCommand.schedule();
@@ -96,20 +82,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    new TeleopInit();
+
     if (autoCommand != null)
       autoCommand.cancel();
-
-    // Robot.intakeSubsystem.stop();
-    // Robot.hopperSubsystem.stop();
-    Robot.indexerSubsystem.stop();
-    Robot.intakeSubsystem.compressor.enableDigital();
-
-    Robot.drivingSubsystem.leftMotor1.configOpenloopRamp(Constants.rampSpeed);
-    Robot.drivingSubsystem.leftMotor2.configOpenloopRamp(Constants.rampSpeed);
-    Robot.drivingSubsystem.leftMotor3.configOpenloopRamp(Constants.rampSpeed);
-    Robot.drivingSubsystem.rightMotor1.configOpenloopRamp(Constants.rampSpeed);
-    Robot.drivingSubsystem.rightMotor2.configOpenloopRamp(Constants.rampSpeed);
-    Robot.drivingSubsystem.rightMotor3.configOpenloopRamp(Constants.rampSpeed);
   }
 
   @Override
@@ -124,5 +100,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+  }
+
+  @Override
+  public void simulationInit() {
+  }
+
+  @Override
+  public void simulationPeriodic() {
   }
 }

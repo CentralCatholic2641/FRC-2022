@@ -1,12 +1,5 @@
 {
   "HALProvider": {
-    "Other Devices": {
-      "Compressor[21]": {
-        "header": {
-          "open": true
-        }
-      }
-    },
     "Solenoids": {
       "21": {
         "header": {
@@ -21,7 +14,6 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/LiveWindow/BlockerSubsystem": "Subsystem",
       "/LiveWindow/ClimberSubsystem": "Subsystem",
       "/LiveWindow/HopperSubsystem": "Subsystem",
       "/LiveWindow/IndexerSubsystem": "Subsystem",
@@ -39,12 +31,6 @@
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     },
     "windows": {
-      "/LiveWindow/BlockerSubsystem": {
-        "window": {
-          "name": "Blocker",
-          "visible": true
-        }
-      },
       "/LiveWindow/ClimberSubsystem": {
         "window": {
           "name": "Climber",
@@ -77,6 +63,13 @@
       },
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
         "window": {
+          "name": "Drivetrain",
+          "visible": true
+        }
+      },
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": {
+        "window": {
+          "name": "navX",
           "visible": true
         }
       }
