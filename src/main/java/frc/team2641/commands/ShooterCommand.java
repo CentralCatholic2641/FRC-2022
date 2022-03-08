@@ -4,19 +4,16 @@
 
 package frc.team2641.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.Robot;
 
 public class ShooterCommand extends CommandBase {
 
   private int shooterSpeed;
-  boolean finished = false;
   boolean forcedStop;
 
-  public ShooterCommand(int speed, boolean force) {
+  public ShooterCommand(int speed) {
     shooterSpeed = speed;
-    forcedStop = force;
     addRequirements(Robot.shooterSubsystem);
   }
 
@@ -31,20 +28,15 @@ public class ShooterCommand extends CommandBase {
     } else if (shooterSpeed == 2) {
       Robot.shooterSubsystem.highTarget();
     }
-    if (forcedStop) {
-      Timer.delay(2);
-      end(false);
-    }
   }
 
   @Override
   public void end(boolean interrupted) {
     Robot.shooterSubsystem.stop();
-    finished = true;
   }
 
   @Override
   public boolean isFinished() {
-    return finished;
+    return false;
   }
 }

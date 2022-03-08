@@ -13,7 +13,7 @@ import frc.team2641.instants.StopInstant;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LowThenHighTarget extends SequentialCommandGroup {
   public LowThenHighTarget() {
-    addCommands(new ShooterCommand(1, true), new WaitCommand(0.5), new StopInstant("indexer"),
+    addCommands(new ShooterCommand(1).withTimeout(2), new WaitCommand(0.5), new StopInstant("indexer"),
         new AutoDrivingCommand(5), new WaitCommand(0.5),
         new FireCommand(2));
   }

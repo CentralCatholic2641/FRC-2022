@@ -49,7 +49,7 @@ public class RobotContainer {
     controllerIntakeButton.whileHeld(new IntakeMotorCommand());
     controllerHopperButton.whileHeld(new HopperCommand());
     controllerIndexerButton.whileHeld(new IndexerCommand());
-    controllerShooterButton.whileHeld(new ShooterCommand(1, false));
+    controllerShooterButton.whileHeld(new ShooterCommand(1));
     controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
     controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
     controllerIntakeToggle.whileHeld(new IntakePistonCommand());

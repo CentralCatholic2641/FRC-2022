@@ -41,8 +41,12 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMotor.stopMotor();
   }
 
+  public boolean locked() {
+    return climberLock.get() == DoubleSolenoid.Value.kForward;
+  }
+
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Climber Lock", climberLock.get() == DoubleSolenoid.Value.kReverse);
+    SmartDashboard.putBoolean("Climber Lock", locked());
   }
 }

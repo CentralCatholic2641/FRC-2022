@@ -59,8 +59,8 @@ public final class Constants {
 	public static final double kD = 0.005;
 
 	// Motor speeds
-	public static final double driveFactor = 0.9;
-	public static final double rotateFactor = 0.8;
+	public static final double driveFactor = 1;
+	public static final double rotateFactor = 0.9;
 	public static final double driveRampSpeed = 0.5;
 	public static final double climberSpeed = 0.35;
 	public static final double intakeSpeed = 0.35;
