@@ -1,5 +1,12 @@
 {
   "HALProvider": {
+    "Other Devices": {
+      "Talon FX[6]": {
+        "header": {
+          "open": true
+        }
+      }
+    },
     "Solenoids": {
       "21": {
         "header": {
