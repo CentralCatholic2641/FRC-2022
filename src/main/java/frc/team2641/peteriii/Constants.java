@@ -72,5 +72,5 @@ public final class Constants {
 	// Other
 	public static final double wheelDiameter = 0.5;
 	public static final double driftCompensation = 0.04;
-	public static final int oneRotation = 2048;
+	public static final double oneRotation = 2048.0;
 }

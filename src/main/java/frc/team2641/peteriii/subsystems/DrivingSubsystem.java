@@ -7,10 +7,19 @@ package frc.team2641.peteriii.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
 import frc.team2641.peteriii.commands.DrivingCommand;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -28,6 +37,7 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public MotorControllerGroup rightGroup = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
+  public WPI_TalonFX leftEncoder = new WPI_TalonFX(Constants.leftEncoder);
   public WPI_TalonFX rightEncoder = new WPI_TalonFX(Constants.rightEncoder);
 
   public DifferentialDrive differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
@@ -40,6 +50,16 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public void tDrive(double left, double right) {
     differentialDrive.tankDrive(-left * Constants.driveFactor, -right * Constants.driveFactor, true);
+  }
+
+  public double encoderDistance(String whichEncoder) {
+    if (whichEncoder == "left") {
+      return (double) (leftEncoder.getSelectedSensorPosition() / Constants.oneRotation)
+          * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
+    } else {
+      return (double) (rightEncoder.getSelectedSensorPosition() / Constants.oneRotation)
+          * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
+    }
   }
 
   public void halt() {
@@ -65,6 +85,8 @@ public class DrivingSubsystem extends SubsystemBase {
     rightMotor3.stopMotor();
   }
 
+  Field2d field = new Field2d();
+
   public DrivingSubsystem() {
     ahrs = new AHRS();
     ahrs.zeroYaw();
@@ -75,9 +97,34 @@ public class DrivingSubsystem extends SubsystemBase {
     rightMotor1.clearStickyFaults();
     rightMotor2.clearStickyFaults();
     rightMotor3.clearStickyFaults();
+
+    SmartDashboard.putData("Field", field);
   }
 
   public void periodic() {
+
+    // DifferentialDriveKinematics kinematics = new
+    // DifferentialDriveKinematics(Units.inchesToMeters(27.0));
+
+    // var chassisSpeeds = new ChassisSpeeds(ahrs.getVelocityY(), 0,
+    // Units.degreesToRadians(ahrs.getRate()));
+
+    // DifferentialDriveWheelSpeeds wheelSpeeds =
+    // kinematics.toWheelSpeeds(chassisSpeeds);
+
+    // double leftVelocity = wheelSpeeds.leftMetersPerSecond;
+    // double rightVelocity = wheelSpeeds.rightMetersPerSecond;
+
+    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+        ahrs.getRotation2d(), new Pose2d(5.0, 13.5, new Rotation2d()));
+
+    var gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
+
+    Pose2d pose = odometry.update(gyroAngle, encoderDistance("left"),
+        encoderDistance("right"));
+
+    field.setRobotPose(pose);
+
     setDefaultCommand(new DrivingCommand());
   }
 }
