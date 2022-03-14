@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Compressor;
 public class IntakeSubsystem extends SubsystemBase {
   public Compressor compressor = new Compressor(21, PneumaticsModuleType.CTREPCM);
   public DoubleSolenoid intakeSolenoid = new DoubleSolenoid(21, PneumaticsModuleType.CTREPCM, 4, 5);
-  public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Constants.intakeMotor);
+  public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Constants.Motors.intakeMotor);
 
   public IntakeSubsystem() {
     intakeMotor.clearStickyFaults();
@@ -33,11 +33,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void forward() {
-    intakeMotor.set(-Constants.intakeSpeed);
+    intakeMotor.set(-Constants.MotorSpeeds.intakeSpeed);
   }
 
   public void backward() {
-    intakeMotor.set(Constants.intakeSpeed);
+    intakeMotor.set(Constants.MotorSpeeds.intakeSpeed);
   }
 
   @Override

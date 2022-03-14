@@ -41,13 +41,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    if (Robot.robotContainer.controller.getRawButton(Constants.leftBumper)) {
+    if (Robot.robotContainer.controller.getRawButton(Constants.GamepadButtons.leftBumper)) {
       Robot.robotContainer.controllerShift = true;
     } else {
       Robot.robotContainer.controllerShift = false;
     }
 
-    if (Robot.robotContainer.driver.getRawButton(Constants.leftBumper)) {
+    if (Robot.robotContainer.driver.getRawButton(Constants.GamepadButtons.leftBumper)) {
       Robot.robotContainer.driverShift = true;
     } else {
       Robot.robotContainer.driverShift = false;

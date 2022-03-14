@@ -15,25 +15,25 @@ import frc.team2641.peteriii.Constants;
 import frc.team2641.peteriii.commands.DrivingCommand;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+// import edu.wpi.first.math.kinematics.ChassisSpeeds;
+// import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+// import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 
 import com.kauailabs.navx.frc.AHRS;
 
 public class DrivingSubsystem extends SubsystemBase {
 
-  public WPI_TalonFX leftMotor1 = new WPI_TalonFX(Constants.leftMotor1);
-  public WPI_TalonFX leftMotor2 = new WPI_TalonFX(Constants.leftMotor2);
-  public WPI_TalonFX leftMotor3 = new WPI_TalonFX(Constants.leftMotor3);
+  public WPI_TalonFX leftMotor1 = new WPI_TalonFX(Constants.Motors.leftMotor1);
+  public WPI_TalonFX leftMotor2 = new WPI_TalonFX(Constants.Motors.leftMotor2);
+  public WPI_TalonFX leftMotor3 = new WPI_TalonFX(Constants.Motors.leftMotor3);
 
   public MotorControllerGroup leftGroup = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
 
-  public WPI_TalonFX rightMotor1 = new WPI_TalonFX(Constants.rightMotor1);
-  public WPI_TalonFX rightMotor2 = new WPI_TalonFX(Constants.rightMotor2);
-  public WPI_TalonFX rightMotor3 = new WPI_TalonFX(Constants.rightMotor3);
+  public WPI_TalonFX rightMotor1 = new WPI_TalonFX(Constants.Motors.rightMotor1);
+  public WPI_TalonFX rightMotor2 = new WPI_TalonFX(Constants.Motors.rightMotor2);
+  public WPI_TalonFX rightMotor3 = new WPI_TalonFX(Constants.Motors.rightMotor3);
 
   public MotorControllerGroup rightGroup = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
 
@@ -45,11 +45,13 @@ public class DrivingSubsystem extends SubsystemBase {
   public AHRS ahrs;
 
   public void aDrive(double rotation, double speed) {
-    differentialDrive.arcadeDrive(rotation * Constants.rotateFactor, speed * Constants.driveFactor, true);
+    differentialDrive.arcadeDrive(rotation * Constants.MotorSpeeds.rotateFactor,
+        speed * Constants.MotorSpeeds.driveFactor, true);
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left * Constants.driveFactor, -right * Constants.driveFactor, true);
+    differentialDrive.tankDrive(-left * Constants.MotorSpeeds.driveFactor, -right * Constants.MotorSpeeds.driveFactor,
+        true);
   }
 
   public double encoderDistance(String whichEncoder) {

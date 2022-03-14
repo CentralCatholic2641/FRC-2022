@@ -18,17 +18,17 @@ import frc.team2641.peteriii.instants.ClimberLockInstant;
 
 public class RobotContainer {
 
-  public XboxController driver = new XboxController(Constants.controller1);
-  public JoystickButton driverFireLowButton = new JoystickButton(driver, Constants.rightBumper);
-  public JoystickButton driverFireHighButton = new JoystickButton(driver, Constants.yButton);
-  public JoystickButton driverLockClimber = new JoystickButton(driver, Constants.aButton);
+  public XboxController driver = new XboxController(Constants.Controllers.driver);
+  public JoystickButton driverFireLowButton = new JoystickButton(driver, Constants.GamepadButtons.rightBumper);
+  public JoystickButton driverFireHighButton = new JoystickButton(driver, Constants.GamepadButtons.yButton);
+  public JoystickButton driverLockClimber = new JoystickButton(driver, Constants.GamepadButtons.aButton);
 
-  public XboxController controller = new XboxController(Constants.controller2);
-  public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.rightBumper);
-  public JoystickButton controllerIntakeButton = new JoystickButton(controller, Constants.aButton);
-  public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.xButton);
-  public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.yButton);
-  public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.bButton);
+  public XboxController controller = new XboxController(Constants.Controllers.controller);
+  public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.GamepadButtons.rightBumper);
+  public JoystickButton controllerIntakeButton = new JoystickButton(controller, Constants.GamepadButtons.aButton);
+  public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.GamepadButtons.xButton);
+  public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.GamepadButtons.yButton);
+  public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.GamepadButtons.bButton);
 
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);

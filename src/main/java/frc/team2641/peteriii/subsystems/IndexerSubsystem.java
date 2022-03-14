@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
-  public WPI_TalonSRX indexerMotor = new WPI_TalonSRX(Constants.indexerMotor);
+  public WPI_TalonSRX indexerMotor = new WPI_TalonSRX(Constants.Motors.indexerMotor);
 
   public IndexerSubsystem() {
     indexerMotor.clearStickyFaults();
@@ -21,11 +21,11 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void forward() {
-    indexerMotor.set(Constants.indexerSpeed);
+    indexerMotor.set(Constants.MotorSpeeds.indexerSpeed);
   }
 
   public void backward() {
-    indexerMotor.set(-Constants.indexerSpeed);
+    indexerMotor.set(-Constants.MotorSpeeds.indexerSpeed);
   }
 
   public void stop() {

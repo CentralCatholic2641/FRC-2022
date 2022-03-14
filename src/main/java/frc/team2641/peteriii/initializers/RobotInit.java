@@ -6,12 +6,16 @@ package frc.team2641.peteriii.initializers;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.team2641.peteriii.Robot;
 
-/** Add your docs here. */
 public class RobotInit {
   public RobotInit() {
     CameraServer.startAutomaticCapture();
+
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
 
     Robot.intakeSubsystem.compressor.enableDigital();
     Robot.climberSubsystem.lock();

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   public DoubleSolenoid climberLock = new DoubleSolenoid(21, PneumaticsModuleType.CTREPCM, 7, 6);
-  public WPI_TalonFX climberMotor = new WPI_TalonFX(Constants.climberMotor);
+  public WPI_TalonFX climberMotor = new WPI_TalonFX(Constants.Motors.climberMotor);
 
   public ClimberSubsystem() {
     climberMotor.clearStickyFaults();
@@ -30,11 +30,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void up() {
-    climberMotor.set(Constants.climberSpeed);
+    climberMotor.set(Constants.MotorSpeeds.climberSpeed);
   }
 
   public void down() {
-    climberMotor.set(-Constants.climberSpeed);
+    climberMotor.set(-Constants.MotorSpeeds.climberSpeed);
   }
 
   public void stop() {

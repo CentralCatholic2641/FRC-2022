@@ -11,18 +11,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  public WPI_TalonFX shooterMotor = new WPI_TalonFX(Constants.shooterMotor);
+  public WPI_TalonFX shooterMotor = new WPI_TalonFX(Constants.Motors.shooterMotor);
 
   public ShooterSubsystem() {
     shooterMotor.clearStickyFaults();
   }
 
   public void highTarget() {
-    shooterMotor.set(Constants.highShooterSpeed);
+    shooterMotor.set(Constants.MotorSpeeds.highShooterSpeed);
   }
 
   public void lowTarget() {
-    shooterMotor.set(Constants.lowShooterSpeed);
+    shooterMotor.set(Constants.MotorSpeeds.lowShooterSpeed);
   }
 
   public void stop() {
