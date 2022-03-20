@@ -25,6 +25,10 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor.set(Constants.MotorSpeeds.lowShooterSpeed);
   }
 
+  public void reverse() {
+    shooterMotor.set(-Constants.MotorSpeeds.lowShooterSpeed);
+  }
+
   public void stop() {
     shooterMotor.stopMotor();
     shooterMotor.setSelectedSensorPosition(0, 0, 0);

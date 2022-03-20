@@ -23,10 +23,14 @@ public class ShooterCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (shooterSpeed == 1) {
-      Robot.shooterSubsystem.lowTarget();
-    } else if (shooterSpeed == 2) {
-      Robot.shooterSubsystem.highTarget();
+    if (Robot.robotContainer.controllerShift == false) {
+      if (shooterSpeed == 1) {
+        Robot.shooterSubsystem.lowTarget();
+      } else if (shooterSpeed == 2) {
+        Robot.shooterSubsystem.highTarget();
+      }
+    } else {
+      Robot.shooterSubsystem.reverse();
     }
   }
 

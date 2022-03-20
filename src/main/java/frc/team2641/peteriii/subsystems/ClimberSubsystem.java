@@ -7,6 +7,7 @@ package frc.team2641.peteriii.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -18,6 +19,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public ClimberSubsystem() {
     climberMotor.clearStickyFaults();
+    climberMotor.setNeutralMode(NeutralMode.Brake);
     release();
   }
 

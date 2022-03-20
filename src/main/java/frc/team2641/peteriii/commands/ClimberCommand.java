@@ -4,7 +4,7 @@
 
 package frc.team2641.peteriii.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Robot;
 
@@ -21,8 +21,8 @@ public class ClimberCommand extends CommandBase {
   public void initialize() {
     // if (Robot.climberSubsystem.locked()) {
     // locked = true;
-    Robot.climberSubsystem.release();
-    Timer.delay(0.25);
+    // Robot.climberSubsystem.release();
+    // Timer.delay(0.025);
     // }
   }
 
@@ -39,9 +39,9 @@ public class ClimberCommand extends CommandBase {
   public void end(boolean interrupted) {
     Robot.climberSubsystem.stop();
     // if (locked) {
-    Timer.delay(0.25);
+    // Timer.delay(0.025);
     // locked = false;
-    Robot.climberSubsystem.lock();
+    // Robot.climberSubsystem.lock();
     // }
   }
 

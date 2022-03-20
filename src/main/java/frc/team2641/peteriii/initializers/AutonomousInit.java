@@ -9,6 +9,7 @@ import frc.team2641.peteriii.Robot;
 public class AutonomousInit {
   public AutonomousInit() {
     Robot.intakeSubsystem.compressor.enableDigital();
+    Robot.intakeSubsystem.lower();
 
     Robot.drivingSubsystem.leftMotor1.configOpenloopRamp(0);
     Robot.drivingSubsystem.leftMotor2.configOpenloopRamp(0);

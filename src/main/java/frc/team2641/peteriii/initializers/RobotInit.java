@@ -5,20 +5,17 @@
 package frc.team2641.peteriii.initializers;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team2641.peteriii.Robot;
 
 public class RobotInit {
   public RobotInit() {
-    CameraServer.startAutomaticCapture();
-
     DataLogManager.start();
     DriverStation.startDataLog(DataLogManager.getLog());
 
     Robot.intakeSubsystem.compressor.enableDigital();
-    Robot.climberSubsystem.lock();
+    // Robot.climberSubsystem.lock();
     Robot.intakeSubsystem.raise();
 
     Robot.drivingSubsystem.leftMotor1.setNeutralMode(NeutralMode.Brake);

@@ -67,21 +67,22 @@ public final class Constants {
 	public static final int rightEncoder = 2;
 	public static final int leftEncoder = 4;
 
-	// PID-related
-	public static final double kP = 0.8;
-	public static final double kI = 0.00475;
-	public static final double kD = 0.005;
+	public final class PID {
+		public static final double kP = 0.8;
+		public static final double kI = 0.00475;
+		public static final double kD = 0.005;
+	}
 
 	public static final class MotorSpeeds {
 		public static final double driveFactor = 1;
-		public static final double rotateFactor = 0.75;
-		public static final double driveRampSpeed = 1;
+		public static final double rotateFactor = 0.8;
+		public static final double driveRampSpeed = 0.5;
 		public static final double climberSpeed = 0.35;
 		public static final double intakeSpeed = 0.5;
 		public static final double hopperSpeed = 0.5;
 		public static final double indexerSpeed = 0.35;
-		public static final double highShooterSpeed = 0.75;
-		public static final double lowShooterSpeed = 0.325;
+		public static final double highShooterSpeed = 0.65;
+		public static final double lowShooterSpeed = 0.35;
 	}
 
 	// Other

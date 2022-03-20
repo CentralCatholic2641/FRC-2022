@@ -20,24 +20,26 @@ public class DrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    // if (Robot.robotContainer.driverShift == true) {
-    // double left =
-    // Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lyAxis);
-    // double right =
-    // Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-    // Robot.drivingSubsystem.tDrive(-left, right);
-    // } else {
-    // double rotation =
-    // Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lxAxis);
-    // double speed =
-    // Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-    // Robot.drivingSubsystem.aDrive(rotation, speed);
-    // }
+    // Gamepad
+    if (Robot.robotContainer.driverShift == true) {
+      double left = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lyAxis);
+      double right = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
+      Robot.drivingSubsystem.tDrive(-left * Constants.MotorSpeeds.driveFactor,
+          right * Constants.MotorSpeeds.driveFactor);
+    } else {
+      double rotation = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lxAxis);
+      double drive = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
+      Robot.drivingSubsystem.aDrive(rotation * Constants.MotorSpeeds.rotateFactor,
+          drive * Constants.MotorSpeeds.rotateFactor);
+    }
 
-    double drive = Robot.robotContainer.driver.getRawAxis(Constants.JoystickButtons.yAxis);
-    double rotate = Robot.robotContainer.driver.getRawAxis(Constants.JoystickButtons.zRotate);
-    Robot.drivingSubsystem.aDrive(rotate * Constants.MotorSpeeds.rotateFactor,
-        drive * Constants.MotorSpeeds.driveFactor);
+    // Joystick
+    // double drive =
+    // Robot.robotContainer.driver.getRawAxis(Constants.JoystickButtons.yAxis);
+    // double rotate =
+    // Robot.robotContainer.driver.getRawAxis(Constants.JoystickButtons.zRotate);
+    // Robot.drivingSubsystem.aDrive(rotate * Constants.MotorSpeeds.rotateFactor,
+    // drive * Constants.MotorSpeeds.driveFactor);
   }
 
   @Override

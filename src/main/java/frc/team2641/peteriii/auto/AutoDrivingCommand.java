@@ -48,8 +48,8 @@ public class AutoDrivingCommand extends CommandBase {
     error = setpoint - distanceTravelled;
     I += (error * 1);
     D = (error - errorPrevious);
-    output = sign * ((Constants.kP * error) + (Constants.kI * I) + (Constants.kD * D))
-        / ((Constants.kP) * setpoint) / 2;
+    output = 0.65 * ((Constants.PID.kP * error) + (Constants.PID.kI * I) + (Constants.PID.kD * D))
+        / ((Constants.PID.kP) * setpoint);
     errorPrevious = error;
 
     // System.out.println("distance: " + distanceTravelled + ", encoder: "
@@ -77,9 +77,10 @@ public class AutoDrivingCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     if (output > 0.35) {
-      // Robot.drivingSubsystem.tDrive(-Robot.drivingSubsystem.ahrs.getAngle() *
-      // Constants.driftCompensation, output);
-      Robot.drivingSubsystem.tDrive(-output, output);
+      // Robot.drivingSubsystem.aDrive(-sign * Robot.drivingSubsystem.ahrs.getAngle()
+      // *
+      // Constants.driftCompensation, sign * output);
+      Robot.drivingSubsystem.tDrive(sign * -output, sign * output);
       return false;
     } else {
       Robot.drivingSubsystem.tDrive(0, 0);

@@ -4,6 +4,7 @@
 
 package frc.team2641.peteriii;
 
+// import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -18,10 +19,19 @@ import frc.team2641.peteriii.instants.ClimberLockInstant;
 
 public class RobotContainer {
 
+  // Gamepad
   public XboxController driver = new XboxController(Constants.Controllers.driver);
-  public JoystickButton driverFireLowButton = new JoystickButton(driver, Constants.GamepadButtons.rightBumper);
-  public JoystickButton driverFireHighButton = new JoystickButton(driver, Constants.GamepadButtons.yButton);
-  public JoystickButton driverLockClimber = new JoystickButton(driver, Constants.GamepadButtons.aButton);
+  public JoystickButton driverFireHighButton = new JoystickButton(driver,
+      Constants.GamepadButtons.rightBumper);
+  public JoystickButton driverFireLowButton = new JoystickButton(driver,
+      Constants.GamepadButtons.yButton);
+
+  // Joystick
+  // public Joystick driver = new Joystick(Constants.Controllers.driver);
+  // public JoystickButton driverFireHighButton = new JoystickButton(driver,
+  // Constants.JoystickButtons.trigger);
+  // public JoystickButton driverFireLowButton = new JoystickButton(driver,
+  // Constants.JoystickButtons.thumb);
 
   public XboxController controller = new XboxController(Constants.Controllers.controller);
   public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.GamepadButtons.rightBumper);
@@ -29,6 +39,7 @@ public class RobotContainer {
   public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.GamepadButtons.xButton);
   public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.GamepadButtons.yButton);
   public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.GamepadButtons.bButton);
+  public JoystickButton controllerFireLowButton = new JoystickButton(controller, Constants.GamepadButtons.startButton);
 
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
@@ -49,10 +60,11 @@ public class RobotContainer {
     controllerIntakeButton.whileHeld(new IntakeMotorCommand());
     controllerHopperButton.whileHeld(new HopperCommand());
     controllerIndexerButton.whileHeld(new IndexerCommand());
-    controllerShooterButton.whileHeld(new ShooterCommand(1));
+    controllerShooterButton.whileHeld(new ShooterCommand(2));
     controllerClimberUpDpad.whileHeld(new ClimberCommand(1));
     controllerClimberDownDpad.whileHeld(new ClimberCommand(-1));
     controllerIntakeToggle.whileHeld(new IntakePistonCommand());
     controllerClimberLockToggle.whenPressed(new ClimberLockInstant());
+    controllerFireLowButton.whileHeld(new FireCommand(1));
   }
 }
