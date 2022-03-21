@@ -12,15 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
-import frc.team2641.peteriii.commands.DrivingCommand;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
+// import frc.team2641.peteriii.commands.DrivingCommand;
+// import edu.wpi.first.math.geometry.Pose2d;
+// import edu.wpi.first.math.geometry.Rotation2d;
 // import edu.wpi.first.math.kinematics.ChassisSpeeds;
 // import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 // import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
-
 import com.kauailabs.navx.frc.AHRS;
 
 public class DrivingSubsystem extends SubsystemBase {
@@ -54,37 +53,55 @@ public class DrivingSubsystem extends SubsystemBase {
         true);
   }
 
-  public double encoderDistance(String whichEncoder) {
-    if (whichEncoder == "left") {
-      return (double) (leftEncoder.getSelectedSensorPosition() / Constants.oneRotation)
-          * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
-    } else {
-      return (double) (rightEncoder.getSelectedSensorPosition() / Constants.oneRotation)
-          * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
-    }
+  // public double encoderDistance(String whichEncoder) {
+  public double getDistance() {
+    // if (whichEncoder == "left") {
+    return (double) (leftEncoder.getSelectedSensorPosition() /
+        Constants.oneRotation) * (Math.PI * Units.feetToMeters(Constants.wheelDiameter)) / 10.71;
+    // } else {
+    // return (double) (rightEncoder.getSelectedSensorPosition() /
+    // Constants.oneRotation)
+    // * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
+    // }
   }
 
   public void halt() {
-    leftMotor1.configOpenloopRamp(0);
-    leftMotor2.configOpenloopRamp(0);
-    leftMotor3.configOpenloopRamp(0);
-    rightMotor1.configOpenloopRamp(0);
-    rightMotor2.configOpenloopRamp(0);
-    rightMotor3.configOpenloopRamp(0);
-
-    leftMotor1.setNeutralMode(NeutralMode.Brake);
-    leftMotor2.setNeutralMode(NeutralMode.Brake);
-    leftMotor3.setNeutralMode(NeutralMode.Brake);
-    rightMotor1.setNeutralMode(NeutralMode.Brake);
-    rightMotor2.setNeutralMode(NeutralMode.Brake);
-    rightMotor3.setNeutralMode(NeutralMode.Brake);
-
+    configRamps(0);
+    configBrakes(true);
     leftMotor1.stopMotor();
     leftMotor2.stopMotor();
     leftMotor3.stopMotor();
     rightMotor1.stopMotor();
     rightMotor2.stopMotor();
     rightMotor3.stopMotor();
+  }
+
+  public void configBrakes(boolean brakesOn) {
+    NeutralMode input;
+    if (brakesOn)
+      input = NeutralMode.Brake;
+    else
+      input = NeutralMode.Coast;
+
+    leftMotor1.setNeutralMode(input);
+    leftMotor2.setNeutralMode(input);
+    leftMotor3.setNeutralMode(input);
+    rightMotor1.setNeutralMode(input);
+    rightMotor2.setNeutralMode(input);
+    rightMotor3.setNeutralMode(input);
+  }
+
+  public void configRamps(double driveRampSpeed) {
+    leftMotor1.configOpenloopRamp(driveRampSpeed);
+    leftMotor2.configOpenloopRamp(driveRampSpeed);
+    leftMotor3.configOpenloopRamp(driveRampSpeed);
+    rightMotor1.configOpenloopRamp(driveRampSpeed);
+    rightMotor2.configOpenloopRamp(driveRampSpeed);
+    rightMotor3.configOpenloopRamp(driveRampSpeed);
+  }
+
+  public void resetEncoder() {
+    rightEncoder.setSelectedSensorPosition(0);
   }
 
   Field2d field = new Field2d();
@@ -117,16 +134,14 @@ public class DrivingSubsystem extends SubsystemBase {
     // double leftVelocity = wheelSpeeds.leftMetersPerSecond;
     // double rightVelocity = wheelSpeeds.rightMetersPerSecond;
 
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
-        ahrs.getRotation2d(), new Pose2d(5.0, 13.5, new Rotation2d()));
+    // DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+    // ahrs.getRotation2d(), new Pose2d(5.0, 13.5, new Rotation2d()));
 
-    var gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
+    // var gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
 
-    Pose2d pose = odometry.update(gyroAngle, encoderDistance("left"),
-        encoderDistance("right"));
+    // Pose2d pose = odometry.update(gyroAngle, encoderDistance(),
+    // encoderDistance());
 
-    field.setRobotPose(pose);
-
-    setDefaultCommand(new DrivingCommand());
+    // field.setRobotPose(pose);
   }
 }

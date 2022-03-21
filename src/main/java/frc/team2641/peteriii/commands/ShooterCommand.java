@@ -6,15 +6,17 @@ package frc.team2641.peteriii.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends CommandBase {
-
+  ShooterSubsystem shooterSubsystem;
   private int shooterSpeed;
   boolean forcedStop;
 
-  public ShooterCommand(int speed) {
-    shooterSpeed = speed;
-    addRequirements(Robot.shooterSubsystem);
+  public ShooterCommand(ShooterSubsystem shooterSubsystem, int speed) {
+    this.shooterSubsystem = shooterSubsystem;
+    this.shooterSpeed = speed;
+    addRequirements(shooterSubsystem);
   }
 
   @Override
@@ -25,18 +27,18 @@ public class ShooterCommand extends CommandBase {
   public void execute() {
     if (Robot.robotContainer.controllerShift == false) {
       if (shooterSpeed == 1) {
-        Robot.shooterSubsystem.lowTarget();
+        shooterSubsystem.lowTarget();
       } else if (shooterSpeed == 2) {
-        Robot.shooterSubsystem.highTarget();
+        shooterSubsystem.highTarget();
       }
     } else {
-      Robot.shooterSubsystem.reverse();
+      shooterSubsystem.reverse();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.shooterSubsystem.stop();
+    shooterSubsystem.stop();
   }
 
   @Override

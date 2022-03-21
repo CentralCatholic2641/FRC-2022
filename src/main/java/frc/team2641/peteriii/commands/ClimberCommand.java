@@ -6,15 +6,17 @@ package frc.team2641.peteriii.commands;
 
 // import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.ClimberSubsystem;
 
 public class ClimberCommand extends CommandBase {
+  private final ClimberSubsystem climberSubsystem;
   int direction;
   boolean locked = false;
 
-  public ClimberCommand(int input) {
-    direction = input;
-    addRequirements(Robot.climberSubsystem);
+  public ClimberCommand(ClimberSubsystem climberSubsystem, int direction) {
+    this.climberSubsystem = climberSubsystem;
+    this.direction = direction;
+    addRequirements(climberSubsystem);
   }
 
   @Override
@@ -29,15 +31,15 @@ public class ClimberCommand extends CommandBase {
   @Override
   public void execute() {
     if (direction == 1) {
-      Robot.climberSubsystem.down();
+      climberSubsystem.down();
     } else {
-      Robot.climberSubsystem.up();
+      climberSubsystem.up();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.climberSubsystem.stop();
+    climberSubsystem.stop();
     // if (locked) {
     // Timer.delay(0.025);
     // locked = false;

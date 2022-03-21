@@ -7,11 +7,14 @@ package frc.team2641.peteriii.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Constants;
 import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.DrivingSubsystem;
 
 public class DrivingCommand extends CommandBase {
+  private final DrivingSubsystem drivingSubsystem;
 
-  public DrivingCommand() {
-    addRequirements(Robot.drivingSubsystem);
+  public DrivingCommand(DrivingSubsystem drivingSubsystem) {
+    this.drivingSubsystem = drivingSubsystem;
+    addRequirements(drivingSubsystem);
   }
 
   @Override
@@ -24,12 +27,12 @@ public class DrivingCommand extends CommandBase {
     if (Robot.robotContainer.driverShift == true) {
       double left = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lyAxis);
       double right = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-      Robot.drivingSubsystem.tDrive(-left * Constants.MotorSpeeds.driveFactor,
+      drivingSubsystem.tDrive(-left * Constants.MotorSpeeds.driveFactor,
           right * Constants.MotorSpeeds.driveFactor);
     } else {
       double rotation = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lxAxis);
       double drive = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-      Robot.drivingSubsystem.aDrive(rotation * Constants.MotorSpeeds.rotateFactor,
+      drivingSubsystem.aDrive(rotation * Constants.MotorSpeeds.rotateFactor,
           drive * Constants.MotorSpeeds.rotateFactor);
     }
 

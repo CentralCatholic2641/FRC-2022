@@ -6,10 +6,14 @@ package frc.team2641.peteriii.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.HopperSubsystem;
 
 public class HopperCommand extends CommandBase {
-  public HopperCommand() {
-    addRequirements(Robot.hopperSubsystem);
+  HopperSubsystem hopperSubsystem;
+
+  public HopperCommand(HopperSubsystem hopperSubsystem) {
+    this.hopperSubsystem = hopperSubsystem;
+    addRequirements(hopperSubsystem);
   }
 
   @Override
@@ -19,15 +23,15 @@ public class HopperCommand extends CommandBase {
   @Override
   public void execute() {
     if (Robot.robotContainer.controllerShift == false) {
-      Robot.hopperSubsystem.forward();
+      hopperSubsystem.forward();
     } else {
-      Robot.hopperSubsystem.backward();
+      hopperSubsystem.backward();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.hopperSubsystem.stop();
+    hopperSubsystem.stop();
   }
 
   @Override

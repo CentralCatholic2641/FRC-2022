@@ -5,24 +5,23 @@
 package frc.team2641.peteriii.instants;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ClimberLockInstant extends InstantCommand {
-  public ClimberLockInstant() {
-    addRequirements(Robot.climberSubsystem);
+  ClimberSubsystem climberSubsystem;
+
+  public ClimberLockInstant(ClimberSubsystem climberSubsystem) {
+    this.climberSubsystem = climberSubsystem;
+    addRequirements(climberSubsystem);
   }
 
   @Override
   public void initialize() {
-    if (Robot.climberSubsystem.climberLock.get() == DoubleSolenoid.Value.kReverse) {
-      Robot.climberSubsystem.lock();
+    if (climberSubsystem.climberLock.get() == DoubleSolenoid.Value.kReverse) {
+      climberSubsystem.lock();
     } else {
-      Robot.climberSubsystem.release();
+      climberSubsystem.release();
     }
-
   }
 }

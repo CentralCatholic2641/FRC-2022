@@ -7,10 +7,10 @@ package frc.team2641.peteriii.auto;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Constants;
-import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.DrivingSubsystem;
 
 public class AutoDrivingCommand extends CommandBase {
-
+  DrivingSubsystem drivingSubsystem;
   double output = 0;
   double I = 0;
   double distanceTravelled = 0;
@@ -20,8 +20,9 @@ public class AutoDrivingCommand extends CommandBase {
   double setpoint = 0;
   int sign = 1;
 
-  public AutoDrivingCommand(double distance) {
-    addRequirements(Robot.drivingSubsystem);
+  public AutoDrivingCommand(DrivingSubsystem drivingSubsystem, double distance) {
+    this.drivingSubsystem = drivingSubsystem;
+    addRequirements(drivingSubsystem);
     if (distance > 0) {
       sign = 1;
     } else {
@@ -42,7 +43,7 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public void execute() {
-    distanceTravelled = ((-Robot.drivingSubsystem.rightEncoder.getSelectedSensorPosition() / Constants.oneRotation)
+    distanceTravelled = ((-drivingSubsystem.rightEncoder.getSelectedSensorPosition() / Constants.oneRotation)
         * (Math.PI * Constants.wheelDiameter)) / 12;
 
     error = setpoint - distanceTravelled;
@@ -71,7 +72,7 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    Robot.drivingSubsystem.rightEncoder.setSelectedSensorPosition(0);
+    drivingSubsystem.resetEncoder();
   }
 
   @Override
@@ -80,10 +81,10 @@ public class AutoDrivingCommand extends CommandBase {
       // Robot.drivingSubsystem.aDrive(-sign * Robot.drivingSubsystem.ahrs.getAngle()
       // *
       // Constants.driftCompensation, sign * output);
-      Robot.drivingSubsystem.tDrive(sign * -output, sign * output);
+      drivingSubsystem.tDrive(sign * -output, sign * output);
       return false;
     } else {
-      Robot.drivingSubsystem.tDrive(0, 0);
+      drivingSubsystem.tDrive(0, 0);
       return true;
     }
   }

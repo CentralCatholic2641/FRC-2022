@@ -4,6 +4,8 @@
 
 package frc.team2641.peteriii;
 
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 // import edu.wpi.first.wpilibj.AnalogInput;
 // import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -12,10 +14,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.team2641.peteriii.commands.DrivingCommand;
-import frc.team2641.peteriii.initializers.*;
-// import frc.team2641.peteriii.instants.StopInstant;
+// import frc.team2641.peteriii.commands.DrivingCommand;
 import frc.team2641.peteriii.subsystems.*;
+// import frc.team2641.peteriii.instants.StopInstant;
 import frc.team2641.peteriii.telemetry.ShuffleboardController;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -25,14 +26,14 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer robotContainer;
 
-  public static DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  public static IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  public static ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  public static HopperSubsystem hopperSubsystem = new HopperSubsystem();
+  private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
+  private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  // private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  // private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
 
-  static DrivingCommand drivingCommand = new DrivingCommand();
+  // static DrivingCommand drivingCommand = new DrivingCommand();
   // static AnalogInput distanceSensor = new AnalogInput(3);
   // static Relay distanceSensorTrigger = new Relay(3);
 
@@ -43,13 +44,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    intakeSubsystem.compressor.enableDigital();
+
     intakeCamera = CameraServer.startAutomaticCapture("Intake", "/dev/video0");
     driverCamera = CameraServer.startAutomaticCapture("Driver", "/dev/video1");
-    // System.out.println(UsbCamera.enumerateUsbCameras());
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
 
-    new RobotInit();
+    // Robot.climberSubsystem.lock();
+    intakeSubsystem.raise();
+    drivingSubsystem.configBrakes(true);
+
     robotContainer = new RobotContainer();
-    Robot.shuffleboard.preMatch();
+    shuffleboard.preMatch();
     // while (true) {
     // distanceSensorTrigger.set(Value.kForward);
     // Timer.delay(0.1);
@@ -60,16 +67,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    if (Robot.robotContainer.controller.getRawButton(Constants.GamepadButtons.leftBumper)) {
-      Robot.robotContainer.controllerShift = true;
+    if (robotContainer.controller.getRawButton(Constants.GamepadButtons.leftBumper)) {
+      robotContainer.controllerShift = true;
     } else {
-      Robot.robotContainer.controllerShift = false;
+      robotContainer.controllerShift = false;
     }
 
-    if (Robot.robotContainer.driver.getRawButton(Constants.GamepadButtons.leftBumper)) {
-      Robot.robotContainer.driverShift = true;
+    if (robotContainer.driver.getRawButton(Constants.GamepadButtons.leftBumper)) {
+      robotContainer.driverShift = true;
     } else {
-      Robot.robotContainer.driverShift = false;
+      robotContainer.driverShift = false;
     }
 
     CommandScheduler.getInstance().run();
@@ -78,8 +85,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    Robot.shuffleboard.disabled();
-    Robot.intakeSubsystem.compressor.disable();
+    shuffleboard.disabled();
+    intakeSubsystem.compressor.disable();
   }
 
   @Override
@@ -88,8 +95,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    Robot.shuffleboard.auto();
-    new AutonomousInit();
+    shuffleboard.auto();
+
+    intakeSubsystem.compressor.enableDigital();
+    intakeSubsystem.lower();
+
+    drivingSubsystem.configRamps(0);
+    drivingSubsystem.resetEncoder();
 
     autoCommand = shuffleboard.getAutonomousCommand();
     // autoCommand = new StopInstant("indexer");
@@ -105,8 +117,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Robot.shuffleboard.teleop();
-    new TeleopInit();
+    shuffleboard.teleop();
+    // Robot.intakeSubsystem.stop();
+    // Robot.hopperSubsystem.stop();
+    indexerSubsystem.stop();
+    intakeSubsystem.compressor.enableDigital();
+    drivingSubsystem.configRamps(Constants.MotorSpeeds.driveRampSpeed);
 
     if (autoCommand != null)
       autoCommand.cancel();
@@ -118,9 +134,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-    Robot.intakeSubsystem.compressor.enableDigital();
+    intakeSubsystem.compressor.enableDigital();
     CommandScheduler.getInstance().cancelAll();
-    Robot.shuffleboard.test();
+    shuffleboard.test();
   }
 
   @Override

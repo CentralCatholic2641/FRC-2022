@@ -6,10 +6,14 @@ package frc.team2641.peteriii.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.IntakeSubsystem;
 
 public class IntakeMotorCommand extends CommandBase {
-  public IntakeMotorCommand() {
-    addRequirements(Robot.intakeSubsystem);
+  IntakeSubsystem intakeSubsystem;
+
+  public IntakeMotorCommand(IntakeSubsystem intakeSubsystem) {
+    this.intakeSubsystem = intakeSubsystem;
+    addRequirements(intakeSubsystem);
   }
 
   @Override
@@ -19,15 +23,15 @@ public class IntakeMotorCommand extends CommandBase {
   @Override
   public void execute() {
     if (Robot.robotContainer.controllerShift == false) {
-      Robot.intakeSubsystem.forward();
+      intakeSubsystem.forward();
     } else {
-      Robot.intakeSubsystem.backward();
+      intakeSubsystem.backward();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    Robot.intakeSubsystem.stop();
+    intakeSubsystem.stop();
   }
 
   @Override

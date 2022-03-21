@@ -6,14 +6,27 @@ package frc.team2641.peteriii.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.team2641.peteriii.Robot;
+import frc.team2641.peteriii.subsystems.HopperSubsystem;
+import frc.team2641.peteriii.subsystems.IndexerSubsystem;
+import frc.team2641.peteriii.subsystems.IntakeSubsystem;
+import frc.team2641.peteriii.subsystems.ShooterSubsystem;
 
 public class FireCommand extends CommandBase {
+  IntakeSubsystem intakeSubsystem;
+  HopperSubsystem hopperSubsystem;
+  IndexerSubsystem indexerSubsystem;
+  ShooterSubsystem shooterSubsystem;
   int speed;
 
-  public FireCommand(int input) {
-    speed = input;
-    addRequirements(Robot.hopperSubsystem, Robot.indexerSubsystem, Robot.shooterSubsystem, Robot.intakeSubsystem);
+  public FireCommand(IntakeSubsystem intakeSubsystem, HopperSubsystem hopperSubsystem,
+      IndexerSubsystem indexerSubsystem, ShooterSubsystem shooterSubsystem, int speed) {
+    this.hopperSubsystem = hopperSubsystem;
+    this.indexerSubsystem = indexerSubsystem;
+    this.shooterSubsystem = shooterSubsystem;
+    this.intakeSubsystem = intakeSubsystem;
+    this.speed = speed;
+
+    addRequirements(hopperSubsystem, indexerSubsystem, shooterSubsystem, intakeSubsystem);
   }
 
   @Override
@@ -21,14 +34,14 @@ public class FireCommand extends CommandBase {
     // Robot.intakeSubsystem.stop();
     // Robot.hopperSubsystem.stop();
     if (speed == 1) {
-      Robot.shooterSubsystem.lowTarget();
+      shooterSubsystem.lowTarget();
     } else if (speed == 2) {
-      Robot.shooterSubsystem.highTarget();
+      shooterSubsystem.highTarget();
     }
     Timer.delay(0.75);
-    Robot.intakeSubsystem.forward();
-    Robot.hopperSubsystem.forward();
-    Robot.indexerSubsystem.forward();
+    intakeSubsystem.forward();
+    hopperSubsystem.forward();
+    indexerSubsystem.forward();
   }
 
   @Override
@@ -37,10 +50,10 @@ public class FireCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    Robot.intakeSubsystem.stop();
-    Robot.hopperSubsystem.stop();
-    Robot.indexerSubsystem.stop();
-    Robot.shooterSubsystem.stop();
+    intakeSubsystem.stop();
+    hopperSubsystem.stop();
+    indexerSubsystem.stop();
+    shooterSubsystem.stop();
   }
 
   @Override
