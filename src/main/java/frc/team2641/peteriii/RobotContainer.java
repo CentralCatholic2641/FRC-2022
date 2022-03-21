@@ -18,14 +18,15 @@ import frc.team2641.peteriii.commands.IntakePistonCommand;
 import frc.team2641.peteriii.commands.ShooterCommand;
 // import frc.team2641.peteriii.instants.ClimberLockInstant;
 import frc.team2641.peteriii.subsystems.*;
+import frc.team2641.peteriii.telemetry.ShuffleboardController;
 
 public class RobotContainer {
-  private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
+  public final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
+  public final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  public final HopperSubsystem hopperSubsystem = new HopperSubsystem();
 
   // Gamepad
   public XboxController driver = new XboxController(Constants.Controllers.driver);
@@ -62,6 +63,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     drivingSubsystem.setDefaultCommand(new DrivingCommand(drivingSubsystem));
+    Robot.shuffleboard = new ShuffleboardController(drivingSubsystem, intakeSubsystem, hopperSubsystem,
+        indexerSubsystem, shooterSubsystem, climberSubsystem);
   }
 
   private void configureButtonBindings() {

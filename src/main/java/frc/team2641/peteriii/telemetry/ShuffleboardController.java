@@ -19,16 +19,11 @@ public class ShuffleboardController {
   public ShuffleboardTab teleopTab = Shuffleboard.getTab("Teleop");
   public ShuffleboardTab testTab = Shuffleboard.getTab("Test");
 
-  private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
-
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-  public ShuffleboardController() {
+  public ShuffleboardController(DrivingSubsystem drivingSubsystem, IntakeSubsystem intakeSubsystem,
+      HopperSubsystem hopperSubsystem, IndexerSubsystem indexerSubsystem, ShooterSubsystem shooterSubsystem,
+      ClimberSubsystem climberSubsystem) {
     // Pre-match
     autoChooser.setDefaultOption("Auto For Florida",
         new AutoForFlorida(drivingSubsystem, intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem));

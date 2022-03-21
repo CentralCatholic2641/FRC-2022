@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // import frc.team2641.peteriii.commands.DrivingCommand;
-import frc.team2641.peteriii.subsystems.*;
+// import frc.team2641.peteriii.subsystems.*;
 // import frc.team2641.peteriii.instants.StopInstant;
 import frc.team2641.peteriii.telemetry.ShuffleboardController;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -26,9 +26,9 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer robotContainer;
 
-  private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  // private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
+  // private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+  // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   // private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   // private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
@@ -40,11 +40,11 @@ public class Robot extends TimedRobot {
   public static UsbCamera intakeCamera;
   public static UsbCamera driverCamera;
 
-  public static ShuffleboardController shuffleboard = new ShuffleboardController();
+  public static ShuffleboardController shuffleboard;
 
   @Override
   public void robotInit() {
-    intakeSubsystem.compressor.enableDigital();
+    robotContainer.intakeSubsystem.compressor.enableDigital();
 
     intakeCamera = CameraServer.startAutomaticCapture("Intake", "/dev/video0");
     driverCamera = CameraServer.startAutomaticCapture("Driver", "/dev/video1");
@@ -52,8 +52,8 @@ public class Robot extends TimedRobot {
     DriverStation.startDataLog(DataLogManager.getLog());
 
     // Robot.climberSubsystem.lock();
-    intakeSubsystem.raise();
-    drivingSubsystem.configBrakes(true);
+    robotContainer.intakeSubsystem.raise();
+    robotContainer.drivingSubsystem.configBrakes(true);
 
     robotContainer = new RobotContainer();
     shuffleboard.preMatch();
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     shuffleboard.disabled();
-    intakeSubsystem.compressor.disable();
+    robotContainer.intakeSubsystem.compressor.disable();
   }
 
   @Override
@@ -97,15 +97,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     shuffleboard.auto();
 
-    intakeSubsystem.compressor.enableDigital();
-    intakeSubsystem.lower();
+    robotContainer.intakeSubsystem.compressor.enableDigital();
+    robotContainer.intakeSubsystem.lower();
 
-    drivingSubsystem.configRamps(0);
-    drivingSubsystem.resetEncoder();
+    robotContainer.drivingSubsystem.configRamps(0);
+    robotContainer.drivingSubsystem.resetEncoder();
 
     autoCommand = shuffleboard.getAutonomousCommand();
     // autoCommand = new StopInstant("indexer");
-    CommandScheduler.getInstance().registerSubsystem(drivingSubsystem);
+    CommandScheduler.getInstance().registerSubsystem(robotContainer.drivingSubsystem);
     if (autoCommand != null)
       autoCommand.schedule();
   }
@@ -120,9 +120,9 @@ public class Robot extends TimedRobot {
     shuffleboard.teleop();
     // Robot.intakeSubsystem.stop();
     // Robot.hopperSubsystem.stop();
-    indexerSubsystem.stop();
-    intakeSubsystem.compressor.enableDigital();
-    drivingSubsystem.configRamps(Constants.MotorSpeeds.driveRampSpeed);
+    robotContainer.indexerSubsystem.stop();
+    robotContainer.intakeSubsystem.compressor.enableDigital();
+    robotContainer.drivingSubsystem.configRamps(Constants.MotorSpeeds.driveRampSpeed);
 
     if (autoCommand != null)
       autoCommand.cancel();
@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-    intakeSubsystem.compressor.enableDigital();
+    robotContainer.intakeSubsystem.compressor.enableDigital();
     CommandScheduler.getInstance().cancelAll();
     shuffleboard.test();
   }
