@@ -18,6 +18,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     intakeMotor.clearStickyFaults();
+    compressor.enableDigital();
+    raise();
   }
 
   public void stop() {

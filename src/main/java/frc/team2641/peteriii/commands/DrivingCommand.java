@@ -27,13 +27,11 @@ public class DrivingCommand extends CommandBase {
     if (Robot.robotContainer.driverShift == true) {
       double left = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lyAxis);
       double right = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-      drivingSubsystem.tDrive(-left * Constants.MotorSpeeds.driveFactor,
-          right * Constants.MotorSpeeds.driveFactor);
+      drivingSubsystem.tDrive(-left, right);
     } else {
       double rotation = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.lxAxis);
       double drive = Robot.robotContainer.driver.getRawAxis(Constants.GamepadButtons.ryAxis);
-      drivingSubsystem.aDrive(rotation * Constants.MotorSpeeds.rotateFactor,
-          drive * Constants.MotorSpeeds.rotateFactor);
+      drivingSubsystem.aDrive(rotation, drive);
     }
 
     // Joystick

@@ -44,18 +44,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    robotContainer.intakeSubsystem.compressor.enableDigital();
+    robotContainer = new RobotContainer();
 
     intakeCamera = CameraServer.startAutomaticCapture("Intake", "/dev/video0");
     driverCamera = CameraServer.startAutomaticCapture("Driver", "/dev/video1");
     DataLogManager.start();
     DriverStation.startDataLog(DataLogManager.getLog());
 
-    // Robot.climberSubsystem.lock();
-    robotContainer.intakeSubsystem.raise();
-    robotContainer.drivingSubsystem.configBrakes(true);
-
-    robotContainer = new RobotContainer();
     shuffleboard.preMatch();
     // while (true) {
     // distanceSensorTrigger.set(Value.kForward);

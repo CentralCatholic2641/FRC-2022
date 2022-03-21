@@ -49,7 +49,7 @@ public class AutoDrivingCommand extends CommandBase {
     error = setpoint - distanceTravelled;
     I += (error * 1);
     D = (error - errorPrevious);
-    output = 0.65 * ((Constants.PID.kP * error) + (Constants.PID.kI * I) + (Constants.PID.kD * D))
+    output = 0.7 * ((Constants.PID.kP * error) + (Constants.PID.kI * I) + (Constants.PID.kD * D))
         / ((Constants.PID.kP) * setpoint);
     errorPrevious = error;
 
