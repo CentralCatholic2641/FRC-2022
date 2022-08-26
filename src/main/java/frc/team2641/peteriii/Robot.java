@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   public static UsbCamera driverCamera;
 
   public static ShuffleboardController shuffleboard;
-  public static LogController log;
+  public static LogController log = new LogController();
 
   // public void getDistance() {
   // int distCM = (int) Integer.toUnsignedLong(distance[0] << 8) +

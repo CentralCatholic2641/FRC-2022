@@ -1,18 +1,6 @@
 {
   "HALProvider": {
-    "Other Devices": {
-      "Talon FX[6]": {
-        "header": {
-          "open": true
-        }
-      }
-    },
-    "Solenoids": {
-      "21": {
-        "header": {
-          "open": true
-        }
-      },
+    "RoboRIO": {
       "window": {
         "visible": true
       }
@@ -38,56 +26,21 @@
       "/LiveWindow/Ungrouped/Talon SRX [14]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [15]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
-      "/Shuffleboard/Pre-Match/Auto": "String Chooser",
-      "/Shuffleboard/Test/Test": "Command",
-      "/SmartDashboard/Field": "Field2d"
+      "/Shuffleboard/Pre-Match/Auto": "String Chooser"
     },
     "windows": {
-      "/LiveWindow/ClimberSubsystem": {
-        "window": {
-          "name": "Climber",
-          "visible": true
-        }
-      },
-      "/LiveWindow/HopperSubsystem": {
-        "window": {
-          "name": "Hopper",
-          "visible": true
-        }
-      },
-      "/LiveWindow/IndexerSubsystem": {
-        "window": {
-          "name": "Indexer",
-          "visible": true
-        }
-      },
-      "/LiveWindow/IntakeSubsystem": {
-        "window": {
-          "name": "Intake",
-          "visible": true
-        }
-      },
-      "/LiveWindow/ShooterSubsystem": {
-        "window": {
-          "name": "Shooter",
-          "visible": true
-        }
-      },
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
         "window": {
-          "name": "Drivetrain",
           "visible": true
         }
       },
       "/LiveWindow/Ungrouped/navX-Sensor[4]": {
         "window": {
-          "name": "navX",
           "visible": true
         }
       },
-      "/SmartDashboard/Field": {
+      "/Shuffleboard/Pre-Match/Auto": {
         "window": {
-          "name": "Field",
           "visible": true
         }
       }
