@@ -87,7 +87,8 @@
       },
       "/SmartDashboard/Field": {
         "window": {
-          "name": "Field"
+          "name": "Field",
+          "visible": true
         }
       }
     }

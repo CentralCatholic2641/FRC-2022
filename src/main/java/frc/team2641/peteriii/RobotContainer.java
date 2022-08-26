@@ -21,66 +21,69 @@ import frc.team2641.peteriii.subsystems.*;
 import frc.team2641.peteriii.telemetry.ShuffleboardController;
 
 public class RobotContainer {
-  public final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  public final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  public final HopperSubsystem hopperSubsystem = new HopperSubsystem();
+    public final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
+    public final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
+    public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    public final HopperSubsystem hopperSubsystem = new HopperSubsystem();
 
-  // Gamepad
-  public XboxController driver = new XboxController(Constants.Controllers.driver);
-  public JoystickButton driverFireHighButton = new JoystickButton(driver,
-      Constants.GamepadButtons.rightBumper);
-  public JoystickButton driverFireLowButton = new JoystickButton(driver,
-      Constants.GamepadButtons.yButton);
+    // Gamepad
+    public XboxController driver = new XboxController(Constants.Controllers.driver);
+    public JoystickButton driverFireHighButton = new JoystickButton(driver,
+            Constants.GamepadButtons.rightBumper);
+    public JoystickButton driverFireLowButton = new JoystickButton(driver,
+            Constants.GamepadButtons.yButton);
 
-  // Joystick
-  // public Joystick driver = new Joystick(Constants.Controllers.driver);
-  // public JoystickButton driverFireHighButton = new JoystickButton(driver,
-  // Constants.JoystickButtons.trigger);
-  // public JoystickButton driverFireLowButton = new JoystickButton(driver,
-  // Constants.JoystickButtons.thumb);
+    // Joystick
+    // public Joystick driver = new Joystick(Constants.Controllers.driver);
+    // public JoystickButton driverFireHighButton = new JoystickButton(driver,
+    // Constants.JoystickButtons.trigger);
+    // public JoystickButton driverFireLowButton = new JoystickButton(driver,
+    // Constants.JoystickButtons.thumb);
 
-  public XboxController controller = new XboxController(Constants.Controllers.controller);
-  public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.GamepadButtons.rightBumper);
-  public JoystickButton controllerIntakeButton = new JoystickButton(controller, Constants.GamepadButtons.aButton);
-  public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.GamepadButtons.xButton);
-  public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.GamepadButtons.yButton);
-  public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.GamepadButtons.bButton);
-  public JoystickButton controllerFireLowButton = new JoystickButton(controller, Constants.GamepadButtons.startButton);
+    public XboxController controller = new XboxController(Constants.Controllers.controller);
+    public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.GamepadButtons.rightBumper);
+    public JoystickButton controllerIntakeButton = new JoystickButton(controller, Constants.GamepadButtons.aButton);
+    public JoystickButton controllerHopperButton = new JoystickButton(controller, Constants.GamepadButtons.xButton);
+    public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.GamepadButtons.yButton);
+    public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.GamepadButtons.bButton);
+    public JoystickButton controllerFireLowButton = new JoystickButton(controller,
+            Constants.GamepadButtons.startButton);
 
-  public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
-  public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
-  public POVButton controllerIntakeToggle = new POVButton(controller, 90);
-  // public POVButton controllerClimberLockToggle = new POVButton(controller,
-  // 270);
+    public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
+    public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
+    public POVButton controllerIntakeToggle = new POVButton(controller, 90);
+    // public POVButton controllerClimberLockToggle = new POVButton(controller,
+    // 270);
 
-  public boolean controllerShift = false;
-  public boolean driverShift = false;
+    public boolean controllerShift = false;
+    public boolean driverShift = false;
 
-  public RobotContainer() {
-    configureButtonBindings();
+    public RobotContainer() {
+        configureButtonBindings();
 
-    drivingSubsystem.setDefaultCommand(new DrivingCommand(drivingSubsystem));
-    Robot.shuffleboard = new ShuffleboardController(drivingSubsystem, intakeSubsystem, hopperSubsystem,
-        indexerSubsystem, shooterSubsystem, climberSubsystem);
-  }
+        drivingSubsystem.setDefaultCommand(new DrivingCommand(drivingSubsystem));
+        Robot.shuffleboard = new ShuffleboardController(drivingSubsystem, intakeSubsystem, hopperSubsystem,
+                indexerSubsystem, shooterSubsystem, climberSubsystem);
+    }
 
-  private void configureButtonBindings() {
-    driverFireLowButton
-        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
-    driverFireHighButton
-        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 2));
+    private void configureButtonBindings() {
+        driverFireLowButton
+                .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
+        driverFireHighButton
+                .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 2));
 
-    controllerIntakeButton.whileHeld(new IntakeMotorCommand(intakeSubsystem));
-    controllerHopperButton.whileHeld(new HopperCommand(hopperSubsystem));
-    controllerIndexerButton.whileHeld(new IndexerCommand(indexerSubsystem));
-    controllerShooterButton.whileHeld(new ShooterCommand(shooterSubsystem, 2));
-    controllerClimberUpDpad.whileHeld(new ClimberCommand(climberSubsystem, 1));
-    controllerClimberDownDpad.whileHeld(new ClimberCommand(climberSubsystem, -1));
-    controllerIntakeToggle.whileHeld(new IntakePistonCommand(intakeSubsystem));
-    controllerFireLowButton
-        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
-  }
+        controllerIntakeButton.whileHeld(new IntakeMotorCommand(intakeSubsystem));
+        controllerHopperButton.whileHeld(new HopperCommand(hopperSubsystem));
+        controllerIndexerButton.whileHeld(new IndexerCommand(indexerSubsystem));
+        controllerShooterButton.whileHeld(new ShooterCommand(shooterSubsystem, 2));
+        controllerClimberUpDpad.whileHeld(new ClimberCommand(climberSubsystem, 1));
+        controllerClimberDownDpad.whileHeld(new ClimberCommand(climberSubsystem, -1));
+        controllerIntakeToggle.whileHeld(new IntakePistonCommand(intakeSubsystem));
+        // controllerClimberLockToggle.whileHeld(new
+        // IntakePistonCommand(intakeSubsystem));
+        controllerFireLowButton
+                .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
+    }
 }

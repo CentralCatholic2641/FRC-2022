@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
 // import frc.team2641.peteriii.commands.DrivingCommand;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.geometry.Pose2d;
+// import edu.wpi.first.math.geometry.Rotation2d;
 // import edu.wpi.first.math.kinematics.ChassisSpeeds;
 // import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 // import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -42,7 +42,7 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public AHRS ahrs;
 
-  Field2d field = new Field2d();
+  // Field2d field = new Field2d();
 
   public DrivingSubsystem() {
     ahrs = new AHRS();
@@ -55,9 +55,10 @@ public class DrivingSubsystem extends SubsystemBase {
     rightMotor2.clearStickyFaults();
     rightMotor3.clearStickyFaults();
 
-    SmartDashboard.putData("Field", field);
-    differentialDrive.setMaxOutput(Constants.MotorSpeeds.maxDrive);
-    configBrakes(true);
+    // SmartDashboard.putData("Field", field);
+    // differentialDrive.setMaxOutput(Constants.MotorSpeeds.maxDrive);
+    configBrakes(Constants.MotorSpeeds.brakes);
+    configRamps(Constants.MotorSpeeds.driveRampSpeed);
   }
 
   public void aDrive(double rotation, double speed) {
@@ -81,8 +82,8 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public void halt() {
-    configRamps(0);
-    configBrakes(true);
+    configRamps(Constants.MotorSpeeds.driveRampSpeed);
+    configBrakes(Constants.MotorSpeeds.brakes);
     leftMotor1.stopMotor();
     leftMotor2.stopMotor();
     leftMotor3.stopMotor();
@@ -134,14 +135,14 @@ public class DrivingSubsystem extends SubsystemBase {
     // double leftVelocity = wheelSpeeds.leftMetersPerSecond;
     // double rightVelocity = wheelSpeeds.rightMetersPerSecond;
 
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
-        ahrs.getRotation2d(), new Pose2d(1, 1, new Rotation2d()));
+    // DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+    // ahrs.getRotation2d(), new Pose2d(1, 1, new Rotation2d()));
 
-    Rotation2d gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
+    // Rotation2d gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
 
-    Pose2d pose = odometry.update(gyroAngle, getDistance(),
-        getDistance());
+    // Pose2d pose = odometry.update(gyroAngle, getDistance(),
+    // getDistance());
 
-    field.setRobotPose(pose);
+    // field.setRobotPose(pose);
   }
 }

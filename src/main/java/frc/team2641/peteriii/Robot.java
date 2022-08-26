@@ -6,9 +6,11 @@ package frc.team2641.peteriii;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+// import edu.wpi.first.wpilibj.I2C;
 // import edu.wpi.first.wpilibj.AnalogInput;
 // import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Relay.Value;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // import frc.team2641.peteriii.subsystems.*;
 // import frc.team2641.peteriii.instants.StopInstant;
 import frc.team2641.peteriii.telemetry.ShuffleboardController;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 
@@ -36,11 +39,31 @@ public class Robot extends TimedRobot {
   // static DrivingCommand drivingCommand = new DrivingCommand();
   // static AnalogInput distanceSensor = new AnalogInput(3);
   // static Relay distanceSensorTrigger = new Relay(3);
+  // private I2C i2c;
+  // private byte[] distance;
+  // private final int LIDAR_ADDR = 0x62;
+  // private final int LIDAR_CONFIG_REGISTER = 0x00;
+  // private final int LIDAR_DISTANCE_REGISTER = 0x8f;
 
   public static UsbCamera intakeCamera;
   public static UsbCamera driverCamera;
 
   public static ShuffleboardController shuffleboard;
+
+  // public void getDistance() {
+  // int distCM = (int) Integer.toUnsignedLong(distance[0] << 8) +
+  // Byte.toUnsignedInt(distance[1]);
+  // System.out.println(distCM);
+  // // return distCM / 100; for testing it will just print the distance
+  // }
+
+  // private void update() {
+  // i2c.write(LIDAR_CONFIG_REGISTER, 0x04);
+  // Timer.delay(0.04);
+  // i2c.read(LIDAR_DISTANCE_REGISTER, 2, distance);
+  // Timer.delay(0.005);
+  // getDistance();
+  // }
 
   @Override
   public void robotInit() {
@@ -52,6 +75,10 @@ public class Robot extends TimedRobot {
     DriverStation.startDataLog(DataLogManager.getLog());
 
     shuffleboard.preMatch();
+
+    // i2c = new I2C(I2C.Port.kOnboard, LIDAR_ADDR);
+    // distance = new byte[2];
+
     // while (true) {
     // distanceSensorTrigger.set(Value.kForward);
     // Timer.delay(0.1);
@@ -75,6 +102,9 @@ public class Robot extends TimedRobot {
     }
 
     CommandScheduler.getInstance().run();
+
+    // update();
+
     // SmartDashboard.putNumber("distance", distanceSensor.getVoltage());
   }
 

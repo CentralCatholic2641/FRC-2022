@@ -77,15 +77,18 @@ public final class Constants {
 	}
 
 	public static final class MotorSpeeds {
-		public static final double maxDrive = 0.8;
+		public static final double maxDrive = 1.0;
+		public static final double rampSpeed = 0;
 		public static final double rotateFactor = 0.8;
 		public static final double driveRampSpeed = 0.5;
 		public static final double climberSpeed = 0.35;
 		public static final double intakeSpeed = 0.5;
 		public static final double hopperSpeed = 0.5;
 		public static final double indexerSpeed = 0.35;
-		public static final double highShooterSpeed = 0.65;
+		// public static final double highShooterSpeed = 0.65;
+		public static final double highShooterSpeed = 1;
 		public static final double lowShooterSpeed = 0.35;
+		public static final boolean brakes = true;
 	}
 
 	// Other
