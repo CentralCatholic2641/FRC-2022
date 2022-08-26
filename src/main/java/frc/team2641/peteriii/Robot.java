@@ -1,40 +1,23 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.team2641.peteriii;
 
-import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.team2641.peteriii.telemetry.ShuffleboardController;
+import frc.team2641.peteriii.telemetry.LogController;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 // import edu.wpi.first.wpilibj.I2C;
 // import edu.wpi.first.wpilibj.AnalogInput;
 // import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.TimedRobot;
-// import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Relay.Value;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-// import frc.team2641.peteriii.commands.DrivingCommand;
-// import frc.team2641.peteriii.subsystems.*;
-// import frc.team2641.peteriii.instants.StopInstant;
-import frc.team2641.peteriii.telemetry.ShuffleboardController;
-
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
 
   public static RobotContainer robotContainer;
-
-  // private final DrivingSubsystem drivingSubsystem = new DrivingSubsystem();
-  // private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-  // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  // private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  // private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
 
   // static DrivingCommand drivingCommand = new DrivingCommand();
   // static AnalogInput distanceSensor = new AnalogInput(3);
@@ -49,6 +32,7 @@ public class Robot extends TimedRobot {
   public static UsbCamera driverCamera;
 
   public static ShuffleboardController shuffleboard;
+  public static LogController log;
 
   // public void getDistance() {
   // int distCM = (int) Integer.toUnsignedLong(distance[0] << 8) +
@@ -71,10 +55,9 @@ public class Robot extends TimedRobot {
 
     intakeCamera = CameraServer.startAutomaticCapture("Intake", "/dev/video0");
     driverCamera = CameraServer.startAutomaticCapture("Driver", "/dev/video1");
-    DataLogManager.start();
-    DriverStation.startDataLog(DataLogManager.getLog());
 
     shuffleboard.preMatch();
+    log.start();
 
     // i2c = new I2C(I2C.Port.kOnboard, LIDAR_ADDR);
     // distance = new byte[2];
