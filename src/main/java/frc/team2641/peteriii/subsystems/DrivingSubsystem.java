@@ -57,10 +57,11 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public void tDrive(double left, double right) {
-    differentialDrive.tankDrive(-left, -right, true);
+    differentialDrive.tankDrive(left, right, true);
   }
 
   public void tDriveVolts(double leftVolts, double rightVolts) {
+    System.out.println("left:" + leftVolts + " right: " + rightVolts);
     leftGroup.setVoltage(leftVolts);
     rightGroup.setVoltage(rightVolts);
     differentialDrive.feed();
@@ -126,11 +127,11 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public double getLeftEncoder() {
-    return leftEncoder.getSelectedSensorPosition();
+    return leftEncoder.getSelectedSensorPosition() / Constants.oneRotation / 10.71;
   }
 
   public double getRightEncoder() {
-    return rightEncoder.getSelectedSensorPosition();
+    return rightEncoder.getSelectedSensorPosition() / Constants.oneRotation / 10.71;
   }
 
   public void resetEncoders() {
@@ -139,8 +140,7 @@ public class DrivingSubsystem extends SubsystemBase {
   }
 
   public Rotation2d getAngle() {
-    // return Rotation2d.fromDegrees(-ahrs.getAngle());
-    return Rotation2d.fromDegrees(0.0);
+    return Rotation2d.fromDegrees(-ahrs.getAngle());
   }
 
   public void zeroHeading() {

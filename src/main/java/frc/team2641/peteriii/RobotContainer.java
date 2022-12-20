@@ -7,7 +7,6 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
@@ -31,9 +30,9 @@ public class RobotContainer {
 
   public XboxController driver = new XboxController(Constants.Controllers.driver);
   public JoystickButton driverFireHighButton = new JoystickButton(driver,
-          Constants.GamepadButtons.rightBumper);
+      Constants.GamepadButtons.rightBumper);
   public JoystickButton driverFireLowButton = new JoystickButton(driver,
-          Constants.GamepadButtons.yButton);
+      Constants.GamepadButtons.yButton);
 
   public XboxController controller = new XboxController(Constants.Controllers.controller);
   public JoystickButton controllerFireButton = new JoystickButton(controller, Constants.GamepadButtons.rightBumper);
@@ -42,7 +41,7 @@ public class RobotContainer {
   public JoystickButton controllerIndexerButton = new JoystickButton(controller, Constants.GamepadButtons.yButton);
   public JoystickButton controllerShooterButton = new JoystickButton(controller, Constants.GamepadButtons.bButton);
   public JoystickButton controllerFireLowButton = new JoystickButton(controller,
-          Constants.GamepadButtons.startButton);
+      Constants.GamepadButtons.startButton);
   public POVButton controllerClimberUpDpad = new POVButton(controller, 0);
   public POVButton controllerClimberDownDpad = new POVButton(controller, 180);
   public POVButton controllerIntakeToggle = new POVButton(controller, 90);
@@ -56,19 +55,19 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     driverFireLowButton
-    .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
-driverFireHighButton
-    .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 2));
+        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
+    driverFireHighButton
+        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 2));
 
-controllerIntakeButton.whileHeld(new IntakeMotorCommand(intakeSubsystem));
-controllerHopperButton.whileHeld(new HopperCommand(hopperSubsystem));
-controllerIndexerButton.whileHeld(new IndexerCommand(indexerSubsystem));
-controllerShooterButton.whileHeld(new ShooterCommand(shooterSubsystem, 2));
-controllerClimberUpDpad.whileHeld(new ClimberCommand(climberSubsystem, 1));
-controllerClimberDownDpad.whileHeld(new ClimberCommand(climberSubsystem, -1));
-controllerIntakeToggle.whileHeld(new IntakePistonCommand(intakeSubsystem));
-controllerFireLowButton
-    .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
+    controllerIntakeButton.whileHeld(new IntakeMotorCommand(intakeSubsystem));
+    controllerHopperButton.whileHeld(new HopperCommand(hopperSubsystem));
+    controllerIndexerButton.whileHeld(new IndexerCommand(indexerSubsystem));
+    controllerShooterButton.whileHeld(new ShooterCommand(shooterSubsystem, 2));
+    controllerClimberUpDpad.whileHeld(new ClimberCommand(climberSubsystem, 1));
+    controllerClimberDownDpad.whileHeld(new ClimberCommand(climberSubsystem, -1));
+    controllerIntakeToggle.whileHeld(new IntakePistonCommand(intakeSubsystem));
+    controllerFireLowButton
+        .whileHeld(new FireCommand(intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem, 1));
   }
 
   public Command getAutonomousCommand() {
@@ -84,10 +83,10 @@ controllerFireLowButton
     TrajectoryConfig config = new TrajectoryConfig(
         Constants.DriveConstants.kMaxSpeedMetersPerSecond,
         Constants.DriveConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(Constants.DriveConstants.kDriveKinematics)
-        // Apply the voltage constraint
-        .addConstraint(autoVoltageConstraint);
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
 
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -116,8 +115,6 @@ controllerFireLowButton
         Robot.robotContainer.drivingSubsystem::tDriveVolts,
         Robot.robotContainer.drivingSubsystem);
 
-    Transform2d tranform = new Pose2d(2, 2, new Rotation2d()).minus(exampleTrajectory.getInitialPose());
-    exampleTrajectory = exampleTrajectory.transformBy(tranform);
     Robot.field.getObject("traj3").setTrajectory(exampleTrajectory);
 
     // Reset odometry to the starting pose of the trajectory.

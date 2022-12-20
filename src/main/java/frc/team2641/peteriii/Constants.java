@@ -62,11 +62,11 @@ public final class Constants {
 	}
 
 	public static final class DriveConstants {
-		public static final double ksVolts = 0.22;
-		public static final double kvVoltSecondsPerMeter = 1.98;
-		public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-		public static final double kPDriveVel = 8.5;
-		public static final double kTrackwidthMeters = 0.69;
+		public static final double ksVolts = 0.59198;
+		public static final double kvVoltSecondsPerMeter = 2.3765;
+		public static final double kaVoltSecondsSquaredPerMeter = 0.21168;
+		public static final double kPDriveVel = 2.8757;
+		public static final double kTrackwidthMeters = 0.5588;
 		public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
 				kTrackwidthMeters);
 		public static final double kMaxSpeedMetersPerSecond = 3;
