@@ -3,18 +3,13 @@ package frc.team2641.peteriii.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2641.peteriii.Constants;
-// import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.kinematics.ChassisSpeeds;
-// import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-// import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.util.Units;
 import com.kauailabs.navx.frc.AHRS;
 
 public class DrivingSubsystem extends SubsystemBase {
@@ -37,12 +32,10 @@ public class DrivingSubsystem extends SubsystemBase {
 
   public AHRS ahrs;
 
-  // Field2d field = new Field2d();
+  private DifferentialDriveOdometry odometry;
+  private Pose2d pose;
 
   public DrivingSubsystem() {
-    ahrs = new AHRS();
-    ahrs.zeroYaw();
-
     leftMotor1.clearStickyFaults();
     leftMotor2.clearStickyFaults();
     leftMotor3.clearStickyFaults();
@@ -50,30 +43,27 @@ public class DrivingSubsystem extends SubsystemBase {
     rightMotor2.clearStickyFaults();
     rightMotor3.clearStickyFaults();
 
-    // SmartDashboard.putData("Field", field);
-    // differentialDrive.setMaxOutput(Constants.MotorSpeeds.maxDrive);
     configBrakes(Constants.MotorSpeeds.brakes);
     configRamps(Constants.MotorSpeeds.driveRampSpeed);
+
+    ahrs = new AHRS();
+    odometry = new DifferentialDriveOdometry(
+        getAngle(), new Pose2d(getLeftEncoder(), getRightEncoder(), new Rotation2d()));
+    pose = odometry.getPoseMeters();
   }
 
   public void aDrive(double rotation, double speed) {
-    differentialDrive.arcadeDrive(rotation, speed, true);
+    differentialDrive.arcadeDrive(rotation * 0.5, -speed * 0.5, true);
   }
 
   public void tDrive(double left, double right) {
     differentialDrive.tankDrive(-left, -right, true);
   }
 
-  // public double encoderDistance(String whichEncoder) {
-  public double getDistance() {
-    // if (whichEncoder == "left") {
-    return (double) (leftEncoder.getSelectedSensorPosition() /
-        Constants.oneRotation) * (Math.PI * Units.feetToMeters(Constants.wheelDiameter)) / 10.71;
-    // } else {
-    // return (double) (rightEncoder.getSelectedSensorPosition() /
-    // Constants.oneRotation)
-    // * (Math.PI * Units.feetToMeters(Constants.wheelDiameter));
-    // }
+  public void tDriveVolts(double leftVolts, double rightVolts) {
+    leftGroup.setVoltage(leftVolts);
+    rightGroup.setVoltage(rightVolts);
+    differentialDrive.feed();
   }
 
   public void halt() {
@@ -111,33 +101,54 @@ public class DrivingSubsystem extends SubsystemBase {
     rightMotor3.configOpenloopRamp(driveRampSpeed);
   }
 
-  public void resetEncoder() {
-    rightEncoder.setSelectedSensorPosition(0);
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getSelectedSensorVelocity(),
+        rightEncoder.getSelectedSensorVelocity());
+  }
+
+  public DifferentialDriveOdometry getOdometry() {
+    return odometry;
+  }
+
+  public void resetPose(Pose2d pose) {
+    resetEncoders();
+    odometry.resetPosition(
+        pose, getAngle());
+  }
+
+  public void updatePose() {
+    pose = odometry.update(getAngle(), getLeftEncoder(), getRightEncoder());
+  }
+
+  public Pose2d getPose() {
+    pose = odometry.getPoseMeters();
+    return pose;
+  }
+
+  public double getLeftEncoder() {
+    return leftEncoder.getSelectedSensorPosition();
+  }
+
+  public double getRightEncoder() {
+    return rightEncoder.getSelectedSensorPosition();
+  }
+
+  public void resetEncoders() {
+    leftEncoder.setSelectedSensorPosition(0.0);
+    rightEncoder.setSelectedSensorPosition(0.0);
+  }
+
+  public Rotation2d getAngle() {
+    // return Rotation2d.fromDegrees(-ahrs.getAngle());
+    return Rotation2d.fromDegrees(0.0);
+  }
+
+  public void zeroHeading() {
+    ahrs.reset();
   }
 
   @Override
   public void periodic() {
-
-    // DifferentialDriveKinematics kinematics = new
-    // DifferentialDriveKinematics(Units.inchesToMeters(27.0));
-
-    // ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ahrs.getVelocityY(), 0,
-    // Units.degreesToRadians(ahrs.getRate()));
-
-    // DifferentialDriveWheelSpeeds wheelSpeeds =
-    // kinematics.toWheelSpeeds(chassisSpeeds);
-
-    // double leftVelocity = wheelSpeeds.leftMetersPerSecond;
-    // double rightVelocity = wheelSpeeds.rightMetersPerSecond;
-
-    // DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
-    // ahrs.getRotation2d(), new Pose2d(1, 1, new Rotation2d()));
-
-    // Rotation2d gyroAngle = Rotation2d.fromDegrees(-ahrs.getAngle() % 360);
-
-    // Pose2d pose = odometry.update(gyroAngle, getDistance(),
-    // getDistance());
-
-    // field.setRobotPose(pose);
+    updatePose();
   }
 }

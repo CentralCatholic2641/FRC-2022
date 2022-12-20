@@ -1,83 +1,52 @@
 package frc.team2641.peteriii;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.team2641.peteriii.telemetry.ShuffleboardController;
-import frc.team2641.peteriii.telemetry.LogController;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
-// import edu.wpi.first.wpilibj.I2C;
-// import edu.wpi.first.wpilibj.AnalogInput;
-// import edu.wpi.first.wpilibj.Relay;
-// import edu.wpi.first.wpilibj.Timer;
-// import edu.wpi.first.wpilibj.Relay.Value;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   Command autoCommand;
 
   public static RobotContainer robotContainer;
+  public static final Field2d field = new Field2d();
 
-  // static DrivingCommand drivingCommand = new DrivingCommand();
-  // static AnalogInput distanceSensor = new AnalogInput(3);
-  // static Relay distanceSensorTrigger = new Relay(3);
-  // private I2C i2c;
-  // private byte[] distance;
-  // private final int LIDAR_ADDR = 0x62;
-  // private final int LIDAR_CONFIG_REGISTER = 0x00;
-  // private final int LIDAR_DISTANCE_REGISTER = 0x8f;
-
-  public static UsbCamera intakeCamera;
-  public static UsbCamera driverCamera;
-
-  public static ShuffleboardController shuffleboard;
-  public static LogController log = new LogController();
-
-  // public void getDistance() {
-  // int distCM = (int) Integer.toUnsignedLong(distance[0] << 8) +
-  // Byte.toUnsignedInt(distance[1]);
-  // System.out.println(distCM);
-  // // return distCM / 100; for testing it will just print the distance
-  // }
-
-  // private void update() {
-  // i2c.write(LIDAR_CONFIG_REGISTER, 0x04);
-  // Timer.delay(0.04);
-  // i2c.read(LIDAR_DISTANCE_REGISTER, 2, distance);
-  // Timer.delay(0.005);
-  // getDistance();
-  // }
+  String trajectoryJSON = "paths/Test.wpilib.json";
+  String trajectoryJSON2 = "paths/Test2.wpilib.json";
+  Trajectory trajectory = new Trajectory();
+  Trajectory trajectory2 = new Trajectory();
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+    SmartDashboard.putData(field);
+    field.setRobotPose(robotContainer.drivingSubsystem.getPose());
 
-    intakeCamera = CameraServer.startAutomaticCapture("Intake", "/dev/video0");
-    driverCamera = CameraServer.startAutomaticCapture("Driver", "/dev/video1");
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
 
-    shuffleboard.preMatch();
-    log.start();
+      Path trajectoryPath2 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
+      trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath2);
 
-    // i2c = new I2C(I2C.Port.kOnboard, LIDAR_ADDR);
-    // distance = new byte[2];
+      robotContainer.drivingSubsystem.resetPose(trajectory.getInitialPose());
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
 
-    // while (true) {
-    // distanceSensorTrigger.set(Value.kForward);
-    // Timer.delay(0.1);
-    // distanceSensorTrigger.set(Value.kReverse);
-    // Timer.delay(5);
-    // }
+    field.getObject("traj").setTrajectory(trajectory);
+    field.getObject("traj2").setTrajectory(trajectory2);
   }
 
   @Override
   public void robotPeriodic() {
-    if (robotContainer.controller.getRawButton(Constants.GamepadButtons.leftBumper)) {
-      robotContainer.controllerShift = true;
-    } else {
-      robotContainer.controllerShift = false;
-    }
-
     if (robotContainer.driver.getRawButton(Constants.GamepadButtons.leftBumper)) {
       robotContainer.driverShift = true;
     } else {
@@ -86,15 +55,11 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().run();
 
-    // update();
-
-    // SmartDashboard.putNumber("distance", distanceSensor.getVoltage());
+    field.setRobotPose(robotContainer.drivingSubsystem.getPose());
   }
 
   @Override
   public void disabledInit() {
-    shuffleboard.disabled();
-    robotContainer.intakeSubsystem.compressor.disable();
   }
 
   @Override
@@ -103,17 +68,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    shuffleboard.auto();
-
-    robotContainer.intakeSubsystem.compressor.enableDigital();
-    robotContainer.intakeSubsystem.lower();
-
+    autoCommand = robotContainer.getAutonomousCommand();
     robotContainer.drivingSubsystem.configRamps(0);
-    robotContainer.drivingSubsystem.resetEncoder();
 
-    autoCommand = shuffleboard.getAutonomousCommand();
-    // autoCommand = new StopInstant("indexer");
-    CommandScheduler.getInstance().registerSubsystem(robotContainer.drivingSubsystem);
     if (autoCommand != null)
       autoCommand.schedule();
   }
@@ -125,11 +82,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    shuffleboard.teleop();
-    // Robot.intakeSubsystem.stop();
-    // Robot.hopperSubsystem.stop();
-    robotContainer.indexerSubsystem.stop();
-    robotContainer.intakeSubsystem.compressor.enableDigital();
     robotContainer.drivingSubsystem.configRamps(Constants.MotorSpeeds.driveRampSpeed);
 
     if (autoCommand != null)
@@ -142,9 +94,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-    robotContainer.intakeSubsystem.compressor.enableDigital();
     CommandScheduler.getInstance().cancelAll();
-    shuffleboard.test();
   }
 
   @Override

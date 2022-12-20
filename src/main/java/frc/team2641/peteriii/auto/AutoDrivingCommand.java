@@ -68,7 +68,7 @@ public class AutoDrivingCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    drivingSubsystem.resetEncoder();
+    drivingSubsystem.resetEncoders();
   }
 
   @Override

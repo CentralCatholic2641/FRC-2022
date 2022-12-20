@@ -4,10 +4,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-// import frc.team2641.peteriii.Robot;
 import frc.team2641.peteriii.auto.*;
-import frc.team2641.peteriii.subsystems.*;
-// import frc.team2641.peteriii.commands.TestCommand;
 
 public class ShuffleboardController {
   public ShuffleboardTab preMatchTab = Shuffleboard.getTab("Pre-Match");
@@ -17,14 +14,12 @@ public class ShuffleboardController {
 
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-  public ShuffleboardController(DrivingSubsystem drivingSubsystem, IntakeSubsystem intakeSubsystem,
-      HopperSubsystem hopperSubsystem, IndexerSubsystem indexerSubsystem, ShooterSubsystem shooterSubsystem,
-      ClimberSubsystem climberSubsystem) {
+  public ShuffleboardController() {
     // Pre-match
     autoChooser.setDefaultOption("Auto For Florida",
-        new AutoForFlorida(drivingSubsystem, intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem));
+        new AutoForFlorida());
     autoChooser.addOption("Low Then High Target",
-        new LowThenHighTarget(drivingSubsystem, intakeSubsystem, hopperSubsystem, indexerSubsystem, shooterSubsystem));
+        new LowThenHighTarget());
     preMatchTab.add("Auto", autoChooser).withSize(2, 1);
     preMatchTab.addCamera("Intake", "Intake", "/dev/video0");
     preMatchTab.addCamera("Driver", "Driver", "/dev/video1");

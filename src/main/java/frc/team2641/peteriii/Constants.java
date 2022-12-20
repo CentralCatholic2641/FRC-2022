@@ -1,5 +1,7 @@
 package frc.team2641.peteriii;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 public final class Constants {
 	public final class JoystickButtons {
 		public static final int trigger = 1;
@@ -57,6 +59,20 @@ public final class Constants {
 		public static final int hopperMotor1 = 13;
 		public static final int hopperMotor2 = 14;
 		public static final int indexerMotor = 15;
+	}
+
+	public static final class DriveConstants {
+		public static final double ksVolts = 0.22;
+		public static final double kvVoltSecondsPerMeter = 1.98;
+		public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+		public static final double kPDriveVel = 8.5;
+		public static final double kTrackwidthMeters = 0.69;
+		public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+				kTrackwidthMeters);
+		public static final double kMaxSpeedMetersPerSecond = 3;
+		public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+		public static final double kRamseteB = 2;
+		public static final double kRamseteZeta = 0.7;
 	}
 
 	// Encoders
